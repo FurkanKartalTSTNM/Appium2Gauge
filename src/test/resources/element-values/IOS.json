@@ -1,0 +1,53 @@
+[
+  {
+    "key": "dashboardIOS",
+    "androidValue": "",
+    "androidType": "",
+    "iosValue": "//XCUIElementTypeStaticText[@name=\"81 ilde mağazadan ÜCRETSİZ TESLİMAT fırsatları\"]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "kategorilerIOS",
+    "androidValue": "",
+    "androidType": "",
+    "iosValue": "//XCUIElementTypeButton[contains(@name, \"Kategoriler\")]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "searchButtonIOS",
+    "androidValue": "",
+    "androidType": "",
+    "iosValue": "//XCUIElementTypeNavigationBar[@name=\"Gratis.HomeView\"]/XCUIElementTypeButton[1]]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "kampanyaSecIOS",
+    "androidValue": "",
+    "androidType": "",
+    "iosValue": "//XCUIElementTypeButton[contains(@name, \"Kampanyalar\")]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "markalarIOS",
+    "androidValue": "",
+    "androidType": "",
+    "iosValue": "//XCUIElementTypeButton[contains(@name, \"Markalar\")]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "kampanyalarIOS",
+    "androidValue": "",
+    "androidType": "",
+    "iosValue": "//XCUIElementTypeButton[contains(@name, \"Kampanyalar\")]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "markalarIOS",
+    "androidValue": "",
+    "androidType": "",
+    "iosValue": "//XCUIElementTypeButton[contains(@name, \"Markalar\")]",
+    "iosType": "xpath"
+  }
+]
+
+

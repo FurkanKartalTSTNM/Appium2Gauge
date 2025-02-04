@@ -1,0 +1,38 @@
+Created by n100922 on 1.11.2024
+
+This is a concept file with following syntax for each concept.
+# Uygulama baslatilir(IOS)
+* "2" saniye bekle
+* Check if element "CargoTextIOS" exists
+
+# Kategoriler tiklanir.IOS
+* Elementin yüklenmesini bekle "kategorilerIOS"
+* Elementine tıkla "kategorilerIOS"
+* "2" saniye bekle
+
+# markalar tiklanir(IOS)
+* Elementin yüklenmesini bekle "markalarIOS"
+* Elementine tıkla "markalarIOS"
+* "1" saniye bekle
+# kampanyalar tiklanir(IOS)
+* Elementin yüklenmesini bekle "kampanyalarIOS"
+* Elementine tıkla "kampanyalarIOS"
+* "1" saniye bekle
+
+# Dashboard tiklanir(IOS)
+* Elementin yüklenmesini bekle "dashboardIOS"
+* Elementine tıkla "dashboardIOS"
+* "1" saniye bekle
+
+# Kategoriler tiklanir(IOS)
+* "kampanyaSec" elementinin hizasından sağdan sola "3" kere kaydır
+* "kampanyaSec" elementinin hizasından soldan sağa "2" kere kaydır
+* "1" saniye bekle
+
+# <text> isimli kategori seçilir.IOS
+* "categoryName" li ve değeri <text> e eşit olan elementli bulana kadar swipe et ve tıkla
+
+# Settings Tiklamalar
+* Elementin yüklenmesini bekle "Genel"
+* Elementine tıkla "Genel"
+* "1" saniye bekle

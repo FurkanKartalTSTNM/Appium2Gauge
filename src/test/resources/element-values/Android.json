@@ -1,0 +1,46 @@
+[
+  {
+    "key": "dashboardAndroid",
+    "androidValue": "com.gratis.android:id/nav_graph_home",
+    "androidType": "id",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "kategorilerAndroid",
+    "androidValue": "com.gratis.android:id/btnSearch",
+    "androidType": "id",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "categoryNameAndroid",
+    "androidValue": "com.gratis.android:id/category_name",
+    "androidType": "id"
+  },
+  {
+    "key": "MakyajKategorisiAndroid",
+    "androidValue": "//*[contains(@resource-id, 'com.gratis.android:id/category_name') and contains(@text, 'Makyaj')]",
+    "androidType": "xpath"
+  },
+  {
+    "key": "CargoTextAndroid",
+    "androidValue": "//*[@text='81 ilde mağazadan ÜCRETSİZ TESLİMAT fırsatları']",
+    "androidType": "xpath"
+  },
+  {
+    "key": "kampanyalarAndroid",
+    "androidValue": "com.gratis.android:id/nav_graph_campaign",
+    "androidType": "id"
+  },
+  {
+    "key": "markalarAndroid",
+    "androidValue": "com.gratis.android:id/nav_graph_trademarks",
+    "androidType": "id"
+  },
+  {
+    "key": "Kate",
+    "androidValue": "com.gratis.android:id/nav_graph_categories",
+    "androidType": "id"
+  }
+]
