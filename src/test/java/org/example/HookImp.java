@@ -81,7 +81,7 @@ public class HookImp {
                 capabilities.setCapability("appium:newCommandTimeout", 60000);
 
                 capabilities.setCapability("app", "https://gmt-spaces.ams3.cdn.digitaloceanspaces.com/documents/devicepark/Gratis-3.3.0_141.apk");
-                appiumDriver = new AndroidDriver(hubUrl, capabilities);
+                androidDriver = new AndroidDriver(hubUrl, capabilities);
 
                 AndroidBatteryInfo info= androidDriver.getBatteryInfo();
                 logger.info(String.valueOf(info.getLevel()));
@@ -106,7 +106,7 @@ public class HookImp {
 
             selector = SelectorFactory
                     .createElementHelper(isDeviceAnd ? SelectorType.ANDROID: SelectorType.IOS);
-            appiumDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+            iosDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
             if (isDeviceAnd){
                 appiumFluentWait = new FluentWait<AppiumDriver>(androidDriver);
             }
