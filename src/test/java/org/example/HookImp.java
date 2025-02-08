@@ -46,28 +46,34 @@ public class HookImp {
     protected static AppiumDriver appiumDriver;
     static EventFiringWebDriver eventDriver;
     protected static FluentWait<AppiumDriver> appiumFluentWait;
-    public static boolean isDeviceAnd=true;
+    public static boolean isDeviceAnd=false;
     protected static Selector selector ;
 
 
     @BeforeScenario
     public void beforeScenario(){
         try {
+            logger.info("hubUrl: ",System.getenv("hubURL"));
+            logger.info("platform: ",System.getenv("platform"));
+            logger.info("udid: ",System.getenv("udid"));
+            logger.info("sessionid: ",System.getenv("sessionid"));
+            logger.info("appiumVersion: ",System.getenv("appiumVersion"));
+
             hubUrl = new URL("https://dev-devicepark-appium-gw-service.testinium.io/wd/hub");
             //hubUrl = new URL("http://192.168.1.167:4723");
             logger.info("----------BeforeScenario--------------");
             DesiredCapabilities capabilities = new DesiredCapabilities();
             HashMap<String, Object> deviceParkOptions = new HashMap<>();
-            deviceParkOptions.put("sessionId", "f0b346d8-7c71-4b9b-a026-4f42dfba6eee");
+            deviceParkOptions.put("sessionId", System.getenv("sessionid"));
             //deviceParkOptions.put("sessionId", "ec12edc2-704f-4185-9348-0b4287a3519c");
-            deviceParkOptions.put("appiumVersion", "2.5.4");
+            deviceParkOptions.put("appiumVersion", System.getenv("appiumVersion"));
             capabilities.setCapability("dp:options", deviceParkOptions);
 
             if (isDeviceAnd){
-                capabilities.setCapability("platformName", "ANDROID");
-
-                capabilities.setCapability("udid", "RF8N82182PN");
-                //capabilities.setCapability("udid", "R68R902ETFR");
+                capabilities.setCapability("platformName",System.getenv("platform"));
+                capabilities.setCapability("udid", System.getenv("udid"));
+                //capabilities.setCapability("platformName", "ANDROID");       //Local
+                //capabilities.setCapability("udid","LGH870d82f54fb");
                 capabilities.setCapability("automationName", "UiAutomator2");       //Local
                 capabilities.setCapability("appPackage","com.gratis.android");
                 capabilities.setCapability("appActivity", "com.app.gratis.ui.splash.SplashActivity");
@@ -75,7 +81,7 @@ public class HookImp {
                 capabilities.setCapability("appium:newCommandTimeout", 60000);
 
                 capabilities.setCapability("app", "https://gmt-spaces.ams3.cdn.digitaloceanspaces.com/documents/devicepark/Gratis-3.3.0_141.apk");
-                androidDriver = new AndroidDriver(hubUrl, capabilities);
+                appiumDriver = new AndroidDriver(hubUrl, capabilities);
 
                 AndroidBatteryInfo info= androidDriver.getBatteryInfo();
                 logger.info(String.valueOf(info.getLevel()));
@@ -85,12 +91,11 @@ public class HookImp {
 
             }
             else {
-                capabilities.setCapability("platformName", "iOS");
-                capabilities.setCapability("udid", "00008101-001364541AE1001E");
+                capabilities.setCapability("platformName",System.getenv("platform"));
+                capabilities.setCapability("udid", System.getenv("udid"));
                 capabilities.setCapability("automationName", "XCUITest");
-                //capabilities.setCapability("bundleId","com.pharos.Gratis");
                 capabilities.setCapability("bundleId","com.apple.Preferences");
-                capabilities.setCapability("app", "https://gmt-spaces.ams3.cdn.digitaloceanspaces.com/documents/devicepark/Gratis-68c16a02.ipa");
+                //capabilities.setCapability("app", "https://gmt-spaces.ams3.cdn.digitaloceanspaces.com/documents/devicepark/Gratis-68c16a02.ipa");
                 //capabilities.setCapability("app", "/Users/n100922/Downloads/FordTrucksUat__36_-52ad12e7.ipa");
 
                 iosDriver = new IOSDriver(hubUrl,capabilities);
@@ -101,7 +106,7 @@ public class HookImp {
 
             selector = SelectorFactory
                     .createElementHelper(isDeviceAnd ? SelectorType.ANDROID: SelectorType.IOS);
-            androidDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+            appiumDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
             if (isDeviceAnd){
                 appiumFluentWait = new FluentWait<AppiumDriver>(androidDriver);
             }
@@ -119,7 +124,7 @@ public class HookImp {
 
     }
 
-    /*@AfterStep
+    @AfterStep
     public void takeScreenshotAfterStep() {
         logger.info("📸 Step tamamlandı, screenshot alınıyor...");
 
@@ -156,7 +161,7 @@ public class HookImp {
         } catch (Exception e) {
             logger.error("🚨 Screenshot alınırken beklenmedik bir hata oluştu!", e);
         }
-    }*/
+    }
 
 
 
