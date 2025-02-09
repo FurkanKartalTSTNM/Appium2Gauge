@@ -53,21 +53,15 @@ public class HookImp {
     @BeforeScenario
     public void beforeScenario(){
         try {
-            System.out.println("HUB_URL:"+ System.getenv("HUB_URL"));
-            logger.info("hubUrl: ",System.getenv("hubURL"));
-            logger.info("platform: ",System.getenv("platform"));
-            logger.info("udid: ",System.getenv("udid"));
-            logger.info("sessionid: ",System.getenv("sessionid"));
-            logger.info("appiumVersion: ",System.getenv("appiumVersion"));
 
             hubUrl = new URL("https://dev-devicepark-appium-gw-service.testinium.io/wd/hub");
             //hubUrl = new URL("http://192.168.1.167:4723");
             logger.info("----------BeforeScenario--------------");
             DesiredCapabilities capabilities = new DesiredCapabilities();
             HashMap<String, Object> deviceParkOptions = new HashMap<>();
-            deviceParkOptions.put("sessionId", System.getenv("sessionid"));
+            deviceParkOptions.put("sessionId", "fa822b91-012e-4f28-9de3-3e3322d03bfb");
             //deviceParkOptions.put("sessionId", "ec12edc2-704f-4185-9348-0b4287a3519c");
-            deviceParkOptions.put("appiumVersion", System.getenv("appiumVersion"));
+            deviceParkOptions.put("appiumVersion", "2.5.4");
             capabilities.setCapability("dp:options", deviceParkOptions);
 
             if (isDeviceAnd){
@@ -92,8 +86,8 @@ public class HookImp {
 
             }
             else {
-                capabilities.setCapability("platformName",System.getenv("platform"));
-                capabilities.setCapability("udid", System.getenv("udid"));
+                capabilities.setCapability("platformName","iOS");
+                capabilities.setCapability("udid","f57820360927d404db9f5147acae9f02a5518fc6");
                 capabilities.setCapability("automationName", "XCUITest");
                 capabilities.setCapability("bundleId","com.apple.Preferences");
                 //capabilities.setCapability("app", "https://gmt-spaces.ams3.cdn.digitaloceanspaces.com/documents/devicepark/Gratis-68c16a02.ipa");
