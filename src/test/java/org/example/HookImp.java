@@ -47,7 +47,6 @@ public class HookImp {
 
     protected static AppiumDriver appiumDriver;
     protected static FluentWait<AppiumDriver> appiumFluentWait;
-    public static boolean isDeviceAnd=false;
     protected static Selector selector ;
 
 
@@ -55,21 +54,24 @@ public class HookImp {
     public void beforeScenario(){
         try {
 
-            //hubUrl = new URL("http://192.168.1.167:4723/");
-            hubUrl = new URL("https://dev-devicepark-appium-gw-service.testinium.io/wd/hub");
+            logger.info("hubUrl: {}",System.getenv("hubURL"));
+            logger.info("platform: {}",System.getenv("platform"));
+            logger.info("udid: {}",System.getenv("udid"));
+            logger.info("sessionId: {}",System.getenv("sessionId"));
+            logger.info("appiumVersion: {}",System.getenv("appiumVersion"));
+
+            hubUrl = new URL(System.getenv("hubURL"));
             logger.info("----------BeforeScenario--------------");
             DesiredCapabilities capabilities = new DesiredCapabilities();
             HashMap<String, Object> deviceParkOptions = new HashMap<>();
-            deviceParkOptions.put("sessionId", "764f1110-cca4-4528-97a1-82687a6c71df");
-            deviceParkOptions.put("appiumVersion", "2.5.4");
+            deviceParkOptions.put("sessionId",System.getenv("sessionId"));
+            deviceParkOptions.put("appiumVersion",System.getenv("appiumVersion"));
             capabilities.setCapability("dp:options", deviceParkOptions);
 
-            if (isDeviceAnd){
-                //capabilities.setCapability("platformName",System.getenv("platform"));
-                //capabilities.setCapability("udid", System.getenv("udid"));
-                capabilities.setCapability("platformName", "ANDROID");       //Local
-                capabilities.setCapability("udid","LGH870d82f54fb");
-                capabilities.setCapability("automationName", "UiAutomator2");       //Local
+            if (System.getenv("platform").equals("ANDROID")){
+                capabilities.setCapability("platformName",System.getenv("platform"));
+                capabilities.setCapability("udid", System.getenv("udid"));
+                capabilities.setCapability("automationName", "UiAutomator2");
                 capabilities.setCapability("appPackage","com.gratis.android");
                 capabilities.setCapability("appActivity", "com.app.gratis.ui.splash.SplashActivity");
                 capabilities.setCapability("autoGrantPermissions", true);
@@ -86,36 +88,29 @@ public class HookImp {
 
             }
             else {
-                capabilities.setCapability("platformName","iOS");
-                capabilities.setCapability("udid","f57820360927d404db9f5147acae9f02a5518fc6");
+                capabilities.setCapability("platformName",System.getenv("platform"));
+                capabilities.setCapability("udid", System.getenv("udid"));
                 capabilities.setCapability("automationName", "XCUITest");
-                //capabilities.setCapability("bundleId","com.apple.Preferences");
-
                 capabilities.setCapability("bundleId","com.pharos.Gratis");
                 capabilities.setCapability("app", "https://testinium-dev-cloud.s3.eu-west-1.amazonaws.com/enterpriseMobileApps/3.2.15_1720_-82c49ca8.ipa");
-                //capabilities.setCapability("app", "/Users/n100922/Downloads/FordTrucksUat__36_-52ad12e7.ipa");
                 capabilities.setCapability("autoAcceptAlerts", true);
                 iosDriver = new IOSDriver(hubUrl,capabilities);
                 IOSBatteryInfo info = iosDriver.getBatteryInfo();
                 logger.info(String.valueOf(info.getLevel()));
                 iosDriver.startRecordingScreen(new IOSStartScreenRecordingOptions()
                         .withTimeLimit(Duration.ofMinutes(5)));
-
             }
-
             selector = SelectorFactory
-                    .createElementHelper(isDeviceAnd ? SelectorType.ANDROID: SelectorType.IOS);
-
-            if (isDeviceAnd){
+                    .createElementHelper(System.getenv("platform").equals("ANDROID") ? SelectorType.ANDROID: SelectorType.IOS);
+            if (System.getenv("platform").equals("ANDROID")){
                 androidDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
                 appiumFluentWait = new FluentWait<AppiumDriver>(androidDriver);
-
             }
             else {
                 iosDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
                 appiumFluentWait = new FluentWait<AppiumDriver>(iosDriver);
-
             }
+
             appiumFluentWait.withTimeout(Duration.ofSeconds(8))
                     .pollingEvery(Duration.ofMillis(350))
                     .ignoring(NoSuchElementException.class);
@@ -133,7 +128,7 @@ public class HookImp {
         File screenshot = null;
 
         try {
-            if (isDeviceAnd) {
+            if (System.getenv("platform").equals("ANDROID")) {
                 if (androidDriver instanceof TakesScreenshot) {
                     screenshot = androidDriver.getScreenshotAs(OutputType.FILE);
                 } else {
@@ -141,7 +136,7 @@ public class HookImp {
                 }
             } else {
                 if (iosDriver instanceof TakesScreenshot) {
-                    screenshot = ((TakesScreenshot) iosDriver).getScreenshotAs(OutputType.FILE);
+                    screenshot = iosDriver.getScreenshotAs(OutputType.FILE);
                 } else {
                     logger.warn("⚠️ iOS driver screenshot almayı desteklemiyor!");
                 }
@@ -170,7 +165,7 @@ public class HookImp {
         String base64Video = "";
 
         try {
-            if (isDeviceAnd) {
+            if (System.getenv("platform").equals("ANDROID")) {
                 base64Video = androidDriver.stopRecordingScreen();
             } else {
                 base64Video = iosDriver.stopRecordingScreen();
@@ -190,9 +185,8 @@ public class HookImp {
             logger.error("🚨 Ekran kaydı alınırken hata oluştu!", e);
         }
 
-        // Driver'ı kapatma
         try {
-            if (isDeviceAnd) {
+            if (System.getenv("platform").equals("ANDROID")) {
                 androidDriver.quit();
             } else {
                 iosDriver.quit();
@@ -201,26 +195,4 @@ public class HookImp {
             logger.error("🚨 Driver kapatma hatası: ", e);
         }
     }
-
-    /*@AfterAll
-    public static void takeRecodVideos(){
-
-        String base64Video = iosDriver.stopRecordingScreen();
-        byte[] videoBytes = Base64.getDecoder().decode(base64Video);
-
-        File videoFile = new File("test-video-" + System.currentTimeMillis() + ".mp4");
-        try (FileOutputStream fos = new FileOutputStream(videoFile)) {
-            fos.write(videoBytes);
-            System.out.println("🎥 Video kaydedildi:");
-            //logger.info("🎥 Video kaydedildi: {}",videoFile.getAbsolutePath());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }*/
-
-
-
-
-
 }
