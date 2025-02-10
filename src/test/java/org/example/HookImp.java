@@ -68,7 +68,7 @@ public class HookImp {
             deviceParkOptions.put("appiumVersion",System.getenv("appiumVersion"));
             capabilities.setCapability("dp:options", deviceParkOptions);
 
-            if (System.getenv("platform").equals("ANDROID")){
+            if (System.getenv("platform").equals("Android")){
                 capabilities.setCapability("platformName",System.getenv("platform"));
                 capabilities.setCapability("udid", System.getenv("udid"));
                 capabilities.setCapability("automationName", "UiAutomator2");
