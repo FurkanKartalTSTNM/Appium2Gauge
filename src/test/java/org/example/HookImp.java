@@ -101,8 +101,8 @@ public class HookImp {
                         .withTimeLimit(Duration.ofMinutes(5)));
             }
             selector = SelectorFactory
-                    .createElementHelper(System.getenv("platform").equals("ANDROID") ? SelectorType.ANDROID: SelectorType.IOS);
-            if (System.getenv("platform").equals("ANDROID")){
+                    .createElementHelper(System.getenv("platform").equals("Android") ? SelectorType.ANDROID: SelectorType.IOS);
+            if (System.getenv("platform").equals("Android")){
                 androidDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
                 appiumFluentWait = new FluentWait<AppiumDriver>(androidDriver);
             }
@@ -128,7 +128,7 @@ public class HookImp {
         File screenshot = null;
 
         try {
-            if (System.getenv("platform").equals("ANDROID")) {
+            if (System.getenv("platform").equals("Android")) {
                 if (androidDriver instanceof TakesScreenshot) {
                     screenshot = androidDriver.getScreenshotAs(OutputType.FILE);
                 } else {
@@ -165,7 +165,7 @@ public class HookImp {
         String base64Video = "";
 
         try {
-            if (System.getenv("platform").equals("ANDROID")) {
+            if (System.getenv("platform").equals("Android")) {
                 base64Video = androidDriver.stopRecordingScreen();
             } else {
                 base64Video = iosDriver.stopRecordingScreen();
@@ -186,7 +186,7 @@ public class HookImp {
         }
 
         try {
-            if (System.getenv("platform").equals("ANDROID")) {
+            if (System.getenv("platform").equals("Android")) {
                 androidDriver.quit();
             } else {
                 iosDriver.quit();

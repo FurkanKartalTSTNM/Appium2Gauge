@@ -5,7 +5,7 @@ Specification Heading
 
 DenemeAndroid
 ---------
-tags: Deneme
+tags: GratisKosum
 * Uygulama baslatilar(ANDROID)
 * Dashboard tiklanir(ANDROID)
 * Kategoriler tiklanir(ANDROID)
@@ -15,6 +15,6 @@ tags: Deneme
 
 UygulamaBaslatirli
 -----------
-tags: Deneme
+tags: BasicKosum
 * "2" saniye bekle
 * Kate tiklanir(ANDROID)

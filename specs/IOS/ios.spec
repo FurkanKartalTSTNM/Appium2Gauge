@@ -5,7 +5,7 @@ Specification Heading
 
 DenemeIOS
 ---------
-tags: DenemeIOS
+tags: GratisIOS
 * Uygulama baslatilir(IOS)
 * Dashboard tiklanir(IOS)
 * markalar tiklanir(IOS)
