@@ -32,7 +32,7 @@ public class StepImplementation extends HookImp {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
 
-    public boolean doesElementExistByKey(String key, int time) {
+    public boolean doesElementExistByKeyAndroid(String key, int time) {
         if (selector == null) {
             throw new IllegalStateException("Selector nesnesi null. Başlatıldığından emin olun.");
         }
@@ -52,6 +52,28 @@ public class StepImplementation extends HookImp {
             return false;
         }
     }
+
+    public boolean doesElementExistByKeyIOS(String key, int time) {
+        if (selector == null) {
+            throw new IllegalStateException("Selector nesnesi null. Başlatıldığından emin olun.");
+        }
+
+        SelectorInfo selectorInfo = selector.getSelectorInfo(key);
+        if (selectorInfo == null) {
+            logger.error(key + " için SelectorInfo nesnesi null döndü.");
+            return false;
+        }
+
+        try {
+            WebDriverWait elementExist = new WebDriverWait(iosDriver, Duration.ofSeconds(time));
+            elementExist.until(ExpectedConditions.visibilityOfElementLocated(selectorInfo.getBy()));
+            return true;
+        } catch (Exception e) {
+            logger.info(key + " aranan elementi bulamadı");
+            return false;
+        }
+    }
+
 
     public List findElements(By by) throws Exception {
         List webElementList = null;
@@ -126,9 +148,16 @@ public class StepImplementation extends HookImp {
         }
     }
 
-    @Step({"Elementine tıkla <key>", "Click element by <key>"})
-    public void clickByKey(String key) {
-        doesElementExistByKey(key, 5);
+    @Step({"Elementine tıkla Android <key>", "Click element by Android <key>"})
+    public void clickByKeyAndroid(String key) {
+        doesElementExistByKeyAndroid(key, 5);
+        findElementByKey(key).click();
+        logger.info(key + " elemente tıkladı");
+    }
+
+    @Step({"Elementine tıkla IOS <key>", "Click element by IOS <key>"})
+    public void clickByKeyIOS(String key) {
+        doesElementExistByKeyIOS(key, 5);
         findElementByKey(key).click();
         logger.info(key + " elemente tıkladı");
     }

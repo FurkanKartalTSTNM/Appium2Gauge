@@ -7,27 +7,27 @@ This is a concept file with following syntax for each concept.
 
 # Kategoriler tiklanir(ANDROID)
 * Elementin yüklenmesini bekle "kategorilerAndroid"
-* Elementine tıkla "kategorilerAndroid"
+* Elementine tıkla Android "kategorilerAndroid"
 * "2" saniye bekle
 
 # markalar tiklanir(ANDROID)
 * Elementin yüklenmesini bekle "markalarAndroid"
-* Elementine tıkla "markalarAndroid"
+* Elementine tıkla Android "markalarAndroid"
 * "1" saniye bekle
 
 # kampanyalar tiklanir(ANDROID)
 * Elementin yüklenmesini bekle "kampanyalarAndroid"
-* Elementine tıkla "kampanyalarAndroid"
+* Elementine tıkla Android "kampanyalarAndroid"
 * "1" saniye bekle
 
 # Dashboard tiklanir(ANDROID)
 * Elementin yüklenmesini bekle "dashboardAndroid"
-* Elementine tıkla "dashboardAndroid"
+* Elementine tıkla Android "dashboardAndroid"
 * "1" saniye bekle
 
 # Kate tiklanir(ANDROID)
 * Elementin yüklenmesini bekle "Kate"
-* Elementine tıkla "Kate"
+* Elementine tıkla Android "Kate"
 * "1" saniye bekle
 
 # Kampanyalar swipe edilir(ANDROID)

@@ -3,25 +3,25 @@ Created by n100922 on 1.11.2024
 This is a concept file with following syntax for each concept.
 # Uygulama baslatilir(IOS)
 * "2" saniye bekle
-* Check if element "CargoTextIOS" exists
+* Check if element "dashboardIOS" exists
 
 # Kategoriler tiklanir.IOS
 * Elementin yüklenmesini bekle "kategorilerIOS"
-* Elementine tıkla "kategorilerIOS"
+* Elementine tıkla IOS "kategorilerIOS"
 * "2" saniye bekle
 
 # markalar tiklanir(IOS)
 * Elementin yüklenmesini bekle "markalarIOS"
-* Elementine tıkla "markalarIOS"
+* Elementine tıkla IOS "markalarIOS"
 * "1" saniye bekle
 # kampanyalar tiklanir(IOS)
 * Elementin yüklenmesini bekle "kampanyalarIOS"
-* Elementine tıkla "kampanyalarIOS"
+* Elementine tıkla IOS "kampanyalarIOS"
 * "1" saniye bekle
 
 # Dashboard tiklanir(IOS)
 * Elementin yüklenmesini bekle "dashboardIOS"
-* Elementine tıkla "dashboardIOS"
+* Elementine tıkla IOS "dashboardIOS"
 * "1" saniye bekle
 
 # Kategoriler tiklanir(IOS)
@@ -34,5 +34,5 @@ This is a concept file with following syntax for each concept.
 
 # Settings Tiklamalar
 * Elementin yüklenmesini bekle "Genel"
-* Elementine tıkla "Genel"
+* Elementine tıkla IOS "Genel"
 * "1" saniye bekle
