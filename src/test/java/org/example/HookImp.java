@@ -144,9 +144,9 @@ public class HookImp {
 
             if (screenshot != null) {
                 String timestamp = new SimpleDateFormat("yyyyMMdd-HHmmss").format(new Date());
-                String filePath = "screenshots/step-" + timestamp + ".png";
+                String filePath = "reports/step-" + timestamp + ".png";
 
-                Files.createDirectories(Paths.get("screenshots"));
+                Files.createDirectories(Paths.get("reports"));
                 Files.copy(screenshot.toPath(), Paths.get(filePath));
 
                 logger.info("✅ Screenshot kaydedildi: {}", filePath);
