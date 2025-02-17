@@ -191,16 +191,79 @@ public class HookImp {
                 .ignoring(NoSuchElementException.class);
     }
 
-    @AfterScenario
-    public void afterScenario() {
+
+    @AfterStep
+    public void takeScreenshotAfterStep() {
+        logger.info("📸 Step tamamlandı, screenshot alınıyor...");
+
+        File screenshot = null;
+
         try {
-            if (isDeviceAnd) {
+            if (System.getenv("platform").equals("Android")) {
+                if (androidDriver instanceof TakesScreenshot) {
+                    screenshot = androidDriver.getScreenshotAs(OutputType.FILE);
+                } else {
+                    logger.warn("⚠️ Android driver screenshot almayı desteklemiyor!");
+                }
+            } else {
+                if (iosDriver instanceof TakesScreenshot) {
+                    screenshot = iosDriver.getScreenshotAs(OutputType.FILE);
+                } else {
+                    logger.warn("⚠️ iOS driver screenshot almayı desteklemiyor!");
+                }
+            }
+
+            if (screenshot != null) {
+                String timestamp = new SimpleDateFormat("yyyyMMdd-HHmmss").format(new Date());
+                String filePath = "reports/step-" + timestamp + ".png";
+
+                Files.createDirectories(Paths.get("reports"));
+                Files.copy(screenshot.toPath(), Paths.get(filePath));
+
+                logger.info("✅ Screenshot kaydedildi: {}", filePath);
+            } else {
+                logger.warn("⚠️ Screenshot alınamadı, screenshot değişkeni null!");
+            }
+        } catch (IOException e) {
+            logger.error("🚨 Screenshot kaydedilirken IO hatası oluştu!", e);
+        } catch (Exception e) {
+            logger.error("🚨 Screenshot alınırken beklenmedik bir hata oluştu!", e);
+        }
+    }
+
+    @AfterScenario
+    public void AfterScenario() {
+        String base64Video = "";
+
+        try {
+            if (System.getenv("platform").equals("Android")) {
+                base64Video = androidDriver.stopRecordingScreen();
+            } else {
+                base64Video = iosDriver.stopRecordingScreen();
+            }
+
+            byte[] videoBytes = Base64.getDecoder().decode(base64Video);
+            File videoFile = new File("test-video-" + System.currentTimeMillis() + ".mp4");
+
+            try (FileOutputStream fos = new FileOutputStream(videoFile)) {
+                fos.write(videoBytes);
+                logger.info("🎥 Video kaydedildi: {}", videoFile.getAbsolutePath());
+            } catch (IOException e) {
+                logger.error("🚨 Video kaydedilirken hata oluştu!", e);
+            }
+
+        } catch (Exception e) {
+            logger.error("🚨 Ekran kaydı alınırken hata oluştu!", e);
+        }
+
+        try {
+            if (System.getenv("platform").equals("Android")) {
                 androidDriver.quit();
             } else {
                 iosDriver.quit();
             }
         } catch (Exception e) {
-            logger.error("Driver kapatma hatası: ", e);
+            logger.error("🚨 Driver kapatma hatası: ", e);
         }
     }
 }
