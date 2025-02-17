@@ -106,6 +106,8 @@ public class HookImp {
     private void setupRemote() {
         try {
 
+            logger.info("--------Remote Sessions---------");
+
             logger.info("hubUrl: {}",System.getenv("hubURL"));
             logger.info("platform: {}",System.getenv("platform"));
             logger.info("udid: {}",System.getenv("udid"));
