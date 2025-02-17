@@ -62,7 +62,6 @@
             <version>BETA-1.5.3</version>
         </dependency>
 
-
             <!-- Log4j2 API Bağımlılığı -->
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>

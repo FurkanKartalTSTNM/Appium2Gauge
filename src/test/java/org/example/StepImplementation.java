@@ -151,7 +151,9 @@ public class StepImplementation extends HookImp {
     @Step({"Elementine tıkla Android <key>", "Click element by Android <key>"})
     public void clickByKeyAndroid(String key) {
         doesElementExistByKeyAndroid(key, 5);
-        findElementByKey(key).click();
+        WebElement element = findElementByKey(key);
+        logger.info("Sending click request for key: " + key);
+        element.click();
         logger.info(key + " elemente tıkladı");
     }
 
