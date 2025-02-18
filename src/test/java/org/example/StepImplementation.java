@@ -52,7 +52,6 @@ public class StepImplementation extends HookImp {
             return false;
         }
     }
-
     public boolean doesElementExistByKeyIOS(String key, int time) {
         if (selector == null) {
             throw new IllegalStateException("Selector nesnesi null. Başlatıldığından emin olun.");
