@@ -3,7 +3,7 @@ Created by n100922 on 1.11.2024
 This is a concept file with following syntax for each concept.
 # Uygulama baslatilar(ANDROID)
 * "2" saniye bekle
-* Check if element "CargoTextAndroid" exists
+* Check if element "dashboardAndroid" exists
 
 # Kategoriler tiklanir(ANDROID)
 * Elementin yüklenmesini bekle "kategorilerAndroid"
