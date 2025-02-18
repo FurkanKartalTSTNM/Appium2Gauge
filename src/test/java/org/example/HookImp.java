@@ -50,8 +50,18 @@ public class HookImp {
     protected static Selector selector ;
 
 
+
     @BeforeScenario
-    public void beforeScenario(){
+    public void beforeScenario() {
+        String environment = System.getenv("PROFILE");
+        logger.info("profile: {}", System.getenv("PROFILE"));
+
+        if (!"testinium".equalsIgnoreCase(environment)) {
+            setupRemote();
+        }
+    }
+
+    private void setupRemote() {
         try {
 
             logger.info("hubUrl: {}",System.getenv("hubURL"));
@@ -83,8 +93,10 @@ public class HookImp {
                 AndroidBatteryInfo info= androidDriver.getBatteryInfo();
                 logger.info(String.valueOf(info.getLevel()));
 
-                androidDriver.startRecordingScreen(new AndroidStartScreenRecordingOptions()
-                        .withTimeLimit(Duration.ofMinutes(5)));
+                if ("true".equals(System.getenv("SCREENRECORD"))){
+                    startScreenRecord();
+                }
+
 
             }
             else {
@@ -120,8 +132,47 @@ public class HookImp {
         }
 
     }
-
     @AfterStep
+    public void afterStep(){
+        logger.info("takeScreenshot: {}", System.getenv("SCREENSHOT"));
+        if ("true".equals(System.getenv("SCREENSHOT"))){
+            takeScreenshotAfterStep();
+        }
+    }
+
+    public void startScreenRecord(){
+        logger.info("Starting ScreenRecord");
+        androidDriver.startRecordingScreen(new AndroidStartScreenRecordingOptions()
+                .withTimeLimit(Duration.ofMinutes(5)));
+    }
+
+    public void stopScreenRecord(){
+
+        String base64Video = "";
+
+        try {
+            if (System.getenv("platform").equals("Android")) {
+                base64Video = androidDriver.stopRecordingScreen();
+            } else {
+                base64Video = iosDriver.stopRecordingScreen();
+            }
+
+            byte[] videoBytes = Base64.getDecoder().decode(base64Video);
+            File videoFile = new File("test-video-" + System.currentTimeMillis() + ".mp4");
+
+            try (FileOutputStream fos = new FileOutputStream(videoFile)) {
+                fos.write(videoBytes);
+                logger.info("🎥 Video kaydedildi: {}", videoFile.getAbsolutePath());
+            } catch (IOException e) {
+                logger.error("🚨 Video kaydedilirken hata oluştu!", e);
+            }
+
+        } catch (Exception e) {
+            logger.error("🚨 Ekran kaydı alınırken hata oluştu!", e);
+        }
+
+    }
+
     public void takeScreenshotAfterStep() {
         logger.info("📸 Step tamamlandı, screenshot alınıyor...");
 
@@ -162,27 +213,9 @@ public class HookImp {
 
     @AfterScenario
     public void AfterScenario() {
-        String base64Video = "";
 
-        try {
-            if (System.getenv("platform").equals("Android")) {
-                base64Video = androidDriver.stopRecordingScreen();
-            } else {
-                base64Video = iosDriver.stopRecordingScreen();
-            }
-
-            byte[] videoBytes = Base64.getDecoder().decode(base64Video);
-            File videoFile = new File("test-video-" + System.currentTimeMillis() + ".mp4");
-
-            try (FileOutputStream fos = new FileOutputStream(videoFile)) {
-                fos.write(videoBytes);
-                logger.info("🎥 Video kaydedildi: {}", videoFile.getAbsolutePath());
-            } catch (IOException e) {
-                logger.error("🚨 Video kaydedilirken hata oluştu!", e);
-            }
-
-        } catch (Exception e) {
-            logger.error("🚨 Ekran kaydı alınırken hata oluştu!", e);
+        if ("true".equals(System.getenv("SCREENRECORD"))){
+            stopScreenRecord();
         }
 
         try {
