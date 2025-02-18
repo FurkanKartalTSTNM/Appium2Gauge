@@ -49,7 +49,7 @@ public class HookImp {
     public void beforeScenario() {
         String environment = System.getenv("profile");
 
-        if (!"Testinium".equalsIgnoreCase(environment)) {
+        if ("Testinium".equalsIgnoreCase(environment)) {
             setupRemote();
         } else {
             setupLocal();
@@ -199,19 +199,19 @@ public class HookImp {
         File screenshot = null;
 
         try {
-            if (System.getenv("platform").equals("Android")) {
+
                 if (androidDriver instanceof TakesScreenshot) {
                     screenshot = androidDriver.getScreenshotAs(OutputType.FILE);
                 } else {
                     logger.warn("⚠️ Android driver screenshot almayı desteklemiyor!");
                 }
-            } else {
+
                 if (iosDriver instanceof TakesScreenshot) {
                     screenshot = iosDriver.getScreenshotAs(OutputType.FILE);
                 } else {
                     logger.warn("⚠️ iOS driver screenshot almayı desteklemiyor!");
                 }
-            }
+
 
             if (screenshot != null) {
                 String timestamp = new SimpleDateFormat("yyyyMMdd-HHmmss").format(new Date());
