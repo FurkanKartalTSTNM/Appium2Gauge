@@ -47,7 +47,8 @@ public class HookImp {
 
     @BeforeScenario
     public void beforeScenario() {
-        String environment = System.getenv("profile");
+        String environment = System.getenv("PROFILE");
+        logger.info("Profile :",System.getenv("PROFILE"));
 
         if ("Testinium".equalsIgnoreCase(environment)) {
             setupRemote();
