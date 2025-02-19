@@ -45,7 +45,8 @@ public class TestiniumAndroidDriver extends AndroidDriver {
         overridden.setCapability("autoGrantPermissions", true);
         overridden.setCapability("appium:newCommandTimeout", 60000);
         overridden.setCapability("app", "https://gmt-spaces.ams3.cdn.digitaloceanspaces.com/documents/devicepark/Gratis-3.3.0_141.apk");
-        DeviceParkUtil.setDeviceParkOptions(capabilities);
+        DeviceParkUtil.setDeviceParkOptions(overridden);
+        System.out.println("deneme"+overridden);
         return overridden;
     }
 
