@@ -15,6 +15,6 @@ tags: Deneme
 
 UygulamaBaslatirli
 -----------
-tags: Deneme
+tags: DenemeBasic
 * "2" saniye bekle
 * Kate tiklanir(ANDROID)
