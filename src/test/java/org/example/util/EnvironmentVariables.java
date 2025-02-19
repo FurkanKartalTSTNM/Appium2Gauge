@@ -16,7 +16,7 @@ public class EnvironmentVariables {
         appiumVersion = System.getenv("appiumVersion");
         takeScreenRecording = true;
 
-        profile = "testinium";
+        profile = "local";
         System.out.println("Environment Variables Initialized");
 
     }

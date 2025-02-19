@@ -22,14 +22,19 @@ public class FileUtil {
         Files.copy(file.toPath(), Paths.get(filePath));
         return filePath;
     }
-    public static String saveVideo(String result,  String fileName) throws IOException {
+    public static String saveVideo(String result, String fileName) throws IOException {
         byte[] videoBytes = Base64.getDecoder().decode(result);
-        File file = new File(fileName);
-        FileOutputStream fileOutputStream = new FileOutputStream(file);
-        fileOutputStream.write(videoBytes);
-        String filePath = String.format("%s%s - %s.%s", Folder.REPORTS.getFolderName(), fileName, (new Date()).getTime(),"mp4");
-        Files.createDirectories(Paths.get(Folder.REPORTS.getFolderName()));
-        Files.copy(file.toPath(), Paths.get(filePath));
+
+        String directory = Folder.REPORTS.getFolderName();
+        Files.createDirectories(Paths.get(directory));
+
+        String filePath = String.format("%s/%s_%d.mp4", directory, fileName, System.currentTimeMillis());
+        File file = new File(filePath);
+
+        try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
+            fileOutputStream.write(videoBytes);
+        }
+
         return filePath;
     }
 

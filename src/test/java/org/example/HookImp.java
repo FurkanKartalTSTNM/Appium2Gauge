@@ -10,6 +10,8 @@ import org.example.driver.TestiniumDriver;
 import org.example.selector.Selector;
 import org.example.selector.SelectorFactory;
 import org.example.selector.SelectorType;
+import org.example.util.DeviceParkUtil;
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.slf4j.Logger;
@@ -20,6 +22,9 @@ import java.net.URL;
 import java.time.Duration;
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
+
+import static org.example.util.Constants.PLATFORM_NAME;
+import static org.example.util.Constants.UDID;
 
 public class HookImp {
 
@@ -37,7 +42,17 @@ public class HookImp {
             TestiniumDriver.initializeEnvironmentVariables();
             hubUrl = new URL("http://127.0.0.1:4723/");
             DesiredCapabilities capabilities = new DesiredCapabilities();
+            capabilities.setCapability(PLATFORM_NAME, Platform.ANDROID);
+            capabilities.setCapability(UDID, "R68R902ETFR");
+            capabilities.setCapability("automationName", "UiAutomator2");
+            capabilities.setCapability("appPackage", "com.gratis.android");
+            capabilities.setCapability("appActivity", "com.app.gratis.ui.splash.SplashActivity");
+            capabilities.setCapability("autoGrantPermissions", true);
+            capabilities.setCapability("appium:newCommandTimeout", 60000);
+            capabilities.setCapability("app", "https://gmt-spaces.ams3.cdn.digitaloceanspaces.com/documents/devicepark/Gratis-3.3.0_141.apk");
+            DeviceParkUtil.setDeviceParkOptions(capabilities);
             androidDriver = new TestiniumAndroidDriver(hubUrl, capabilities);
+            androidDriver.startRecordingScreen();
 
 
             selector = SelectorFactory
@@ -60,6 +75,7 @@ public class HookImp {
     @AfterScenario
     public void afterScenario() {
         try {
+            androidDriver.stopRecordingScreen();
             androidDriver.quit();
         } catch (Exception e) {
             logger.error(e.getMessage());

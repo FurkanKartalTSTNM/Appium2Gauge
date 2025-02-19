@@ -45,7 +45,6 @@ public class TestiniumAndroidDriver extends AndroidDriver {
 
     @Override
     public String startRecordingScreen() {
-
         Map<String, Object> params = new HashMap<>();
         params.put(TIME_LIMIT, DEFAULT_TIME_SCREEN_RECORD_TIME);
         Object result = this.executeScript(Constants.Command.START_RECORDING, params);
@@ -57,11 +56,10 @@ public class TestiniumAndroidDriver extends AndroidDriver {
         Map<String, Object> params = new HashMap<>();
         Object result = this.executeScript(Constants.Command.STOP_RECORDING, params);
         try {
-            FileUtil.saveVideo((String) result, "video");
+            return FileUtil.saveVideo((String) result, "video");
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error while saving video", e);
         }
-        return result != null ? result.toString() : "Stopping failed";
     }
 
    @Override
