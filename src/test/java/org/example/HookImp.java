@@ -8,10 +8,12 @@ import io.appium.java_client.android.AndroidStartScreenRecordingOptions;
 import io.appium.java_client.ios.IOSBatteryInfo;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.IOSStartScreenRecordingOptions;
+import io.appium.java_client.screenrecording.CanRecordScreen;
 import io.appium.java_client.serverevents.ServerEvents;
 import org.example.selector.SelectorFactory;
 import org.example.selector.SelectorType;
 import org.openqa.grid.internal.TestSession;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -65,26 +67,33 @@ public class HookImp {
         } else {
             setupLocal();
         }
+        
     }
 
     private void setupLocal() {
         try {
-            hubUrl = new URL("http://192.168.1.89:4723");
+            hubUrl = new URL("http://127.0.0.1:4723/");
             logger.info("----------BeforeScenario (Local)--------------");
             DesiredCapabilities capabilities = new DesiredCapabilities();
+            HashMap<String, Object> deviceParkOptions = new HashMap<>();
+            deviceParkOptions.put("sessionId",System.getenv("sessionId"));
+            deviceParkOptions.put("appiumVersion",System.getenv("appiumVersion"));
+            capabilities.setCapability("dp:options", deviceParkOptions);
 
             if (isDeviceAnd) {
                 capabilities.setCapability("platformName", "ANDROID");
-                capabilities.setCapability("udid", "R68R902ETFR");
-                capabilities.setCapability("automationName", "UiAutomator2");
+                capabilities.setCapability("udid", "denem");
+                capabilities.setCapability("automationName", "deneme");
                 capabilities.setCapability("appPackage", "com.gratis.android");
                 capabilities.setCapability("appActivity", "com.app.gratis.ui.splash.SplashActivity");
                 capabilities.setCapability("autoGrantPermissions", true);
                 capabilities.setCapability("appium:newCommandTimeout", 60000);
                 capabilities.setCapability("app", "https://gmt-spaces.ams3.cdn.digitaloceanspaces.com/documents/devicepark/Gratis-3.3.0_141.apk");
 
-                LoggingCommandExecutor logingCommand = new LoggingCommandExecutor(hubUrl);
-                androidDriver = new AndroidDriver(logingCommand.getAddressOfRemoteServer(), capabilities);
+                LoggingCommandExecutor loggingCommand = new LoggingCommandExecutor(hubUrl);
+                androidDriver = new TestiniumAndroidDriver(loggingCommand, capabilities);
+                androidDriver = new AndroidDriver(hubUrl,capabilities);
+                Capabilities capabilities1 = androidDriver.getCapabilities();
 
                 //WebDriver decoratedDriver = new EventFiringDecorator<>(new Listener(androidDriver)).decorate(androidDriver);
 
@@ -97,8 +106,16 @@ public class HookImp {
                 AndroidBatteryInfo info = androidDriver.getBatteryInfo();
                 logger.info("Batarya seviyesi: " + info.getLevel());
 
-                androidDriver.startRecordingScreen(new AndroidStartScreenRecordingOptions()
-                        .withTimeLimit(Duration.ofMinutes(5)));
+                /*androidDriver.startRecordingScreen(new AndroidStartScreenRecordingOptions()
+                        .withTimeLimit(Duration.ofMinutes(5)));*/
+
+                androidDriver.startRecordingScreen();
+
+                //((AndroidDriver) androidDriver).executeScript("mobile: startMediaProjectionRecording", params);
+
+
+
+
 
             } else {
                 capabilities.setCapability("platformName", "iOS");
@@ -246,7 +263,6 @@ public class HookImp {
 
     @AfterStep
     public void takeScreenshotAfterStep(ExecutionContext executionContext) {
-        ServerEvents events = androidDriver.getEvents();
         String currentStepName = executionContext.getCurrentStep().getText();
         Optional<TestiniumLogs> stepLogsOptional = testiniumLogs.stream().filter(tl -> tl.getStepName().equals(currentStepName)).findFirst();
         if (stepLogsOptional.isPresent()) {
@@ -266,7 +282,6 @@ public class HookImp {
                     LogEntries logcat = androidDriver.manage().logs().get("server");
 
                     screenshot = androidDriver.getScreenshotAs(OutputType.FILE);
-                    ServerEvents events1 = androidDriver.getEvents();
                     LogEntries logcat1 = androidDriver.manage().logs().get("server");
 
 
@@ -314,7 +329,7 @@ public class HookImp {
         String base64Video = "";
 
         try {
-            if (System.getenv("platform").equals("Android")) {
+            if (isDeviceAnd) {
                 base64Video = androidDriver.stopRecordingScreen();
             } else {
                 base64Video = iosDriver.stopRecordingScreen();
@@ -335,7 +350,7 @@ public class HookImp {
         }
 
         try {
-            if (System.getenv("platform").equals("Android")) {
+            if (isDeviceAnd) {
                 androidDriver.quit();
             } else {
                 iosDriver.quit();
