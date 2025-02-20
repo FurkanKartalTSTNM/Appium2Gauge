@@ -17,6 +17,7 @@ public class TestiniumEnvironment {
         System.out.println("sessionid:"+System.getenv("sessionId"));
 
         if ("testinium".equals(envProfile)) {
+            System.out.println("Initialized with testinium");
             sessionId = System.getenv("sessionId") != null ? System.getenv("sessionId") : "default-session-id";
             appiumVersion = System.getenv("appiumVersion") != null ? System.getenv("appiumVersion") : "2.5.4";
             takeScreenRecording = System.getenv("takeScreenRecording") != null ? System.getenv("takeScreenRecording") : "true";
