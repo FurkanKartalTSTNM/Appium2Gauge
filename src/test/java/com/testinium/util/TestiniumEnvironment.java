@@ -16,12 +16,14 @@ public class TestiniumEnvironment {
 
         System.out.println("sessionid:"+System.getenv("sessionId"));
 
-        if ("testinium".equals(envProfile)) {
+        if (envProfile.equals("testinium")) {
             System.out.println("Initialized with testinium");
             sessionId = System.getenv("sessionId") != null ? System.getenv("sessionId") : "default-session-id";
             appiumVersion = System.getenv("appiumVersion") != null ? System.getenv("appiumVersion") : "2.5.4";
             takeScreenRecording = System.getenv("takeScreenRecording") != null ? System.getenv("takeScreenRecording") : "true";
         } else {
+            System.out.println("Initialized not testinium");
+
             sessionId = "a9446477-30da-4f42-833a-82de39967f97";
             appiumVersion = "2.5.4";
             takeScreenRecording = "true";
