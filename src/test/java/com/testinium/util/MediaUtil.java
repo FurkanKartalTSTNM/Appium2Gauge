@@ -41,13 +41,12 @@ public class MediaUtil {
         driver.executeScript(Constants.Command.START_RECORDING, params);
     }
     public static void startScreenRecordingForIOS(URL remoteUrl, SessionId sessionId) throws Exception {
-        String url = remoteUrl +"session/"+ sessionId + "/appium/start_recording_screen";
+        String url = remoteUrl +"/session/"+ sessionId + "/appium/start_recording_screen";
 
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpPost request = new HttpPost(url);
             request.setHeader("Content-Type", "application/json");
 
-            // Start recording (empty JSON body)
             String jsonBody = "{}";
             request.setEntity(new StringEntity(jsonBody));
 
@@ -57,13 +56,12 @@ public class MediaUtil {
     }
 
     public static void stopScreenRecordingForIOS(URL remoteUrl, String sessionId) throws Exception {
-        String url = remoteUrl +"session/"+ sessionId + "/appium/stop_recording_screen";
+        String url = remoteUrl +"/session/"+ sessionId + "/appium/stop_recording_screen";
 
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpPost request = new HttpPost(url);
             request.setHeader("Content-Type", "application/json");
 
-            // Stop recording (empty JSON body)
             String jsonBody = "{}";
             request.setEntity(new StringEntity(jsonBody));
 
