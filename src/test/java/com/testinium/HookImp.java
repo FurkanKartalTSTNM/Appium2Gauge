@@ -40,7 +40,7 @@ public class HookImp {
     @BeforeScenario
     public void beforeScenario() {
         try {
-            Boolean isDeviceAndroid=true;
+            Boolean isDeviceAndroid=false;
                     if(isDeviceAndroid){
                         TestiniumDriver.start();
                         hubUrl = new URL(System.getenv("hubURL"));
@@ -69,7 +69,7 @@ public class HookImp {
                     }
                     else {
                         TestiniumDriver.start();
-                        hubUrl = new URL("http://127.0.0.1:4723/");
+                        hubUrl = new URL(System.getenv("hubURL"));
                         DesiredCapabilities capabilities = new DesiredCapabilities();
                         iosDriver = new TestiniumIOSDriver(hubUrl, capabilities);
 
