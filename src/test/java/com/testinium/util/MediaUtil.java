@@ -30,8 +30,7 @@ public class MediaUtil {
             return;
         }
         Map<String, Object> params = new HashMap<>();
-        driver.executeScript("mobile: startScreenRecording", params);
-       // driver.executeScript(Constants.Command.START_RECORDING, params);
+        driver.executeScript(Constants.Command.START_RECORDING, params);
     }
 
     public static void saveScreenRecord(RemoteWebDriver driver) {
