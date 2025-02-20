@@ -45,9 +45,8 @@ public class TestiniumAndroidDriver extends AndroidDriver {
         overridden.setCapability("appActivity", "com.app.gratis.ui.splash.SplashActivity");
         overridden.setCapability("autoGrantPermissions", true);
         overridden.setCapability("appium:newCommandTimeout", 60000);
-        overridden.setCapability("app", System.getenv("app"));
+        overridden.setCapability("app",TestiniumEnvironment.app);
         DeviceParkUtil.setDeviceParkOptions(overridden);
-        System.out.println("deneme"+overridden);
         return overridden;
     }
 

@@ -40,8 +40,7 @@ public class TestiniumIOSDriver extends IOSDriver {
         overridden.setCapability(UDID, "00008101-001364541AE1001E");
         overridden.setCapability("automationName", "XCUITest");
         overridden.setCapability("bundleId", "com.apple.Preferences");
-        //overridden.setCapability("startIWDP", true);
-        //capabilities.setCapability("app", "https://testinium-dev-cloud.s3.eu-west-1.amazonaws.com/enterpriseMobileApps/3.2.15_1720_-82c49ca8.ipa");
+        capabilities.setCapability("app", TestiniumEnvironment.app);
         overridden.setCapability("autoAcceptAlerts", true);
         setDeviceParkOptions(overridden);
 

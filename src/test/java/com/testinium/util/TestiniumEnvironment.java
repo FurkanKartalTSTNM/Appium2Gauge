@@ -7,23 +7,22 @@ public class TestiniumEnvironment {
     public static String profile;
     public static String takeScreenRecording;
     public static String platform;
+    public static String app;
 
 
     public void init() {
         profile = "testinium";
         String envProfile = System.getenv("profile");
-        System.out.println("profile:"+System.getenv("profile"));
-
-        System.out.println("sessionid:"+System.getenv("sessionId"));
 
         if (envProfile.equals("testinium")) {
-            System.out.println("Initialized with testinium");
             sessionId = System.getenv("sessionId") != null ? System.getenv("sessionId") : "default-session-id";
             appiumVersion = System.getenv("appiumVersion") != null ? System.getenv("appiumVersion") : "2.5.4";
             takeScreenRecording = System.getenv("takeScreenRecording") != null ? System.getenv("takeScreenRecording") : "true";
-        } else {
-            System.out.println("Initialized not testinium");
+            app = System.getenv("app") != null ? System.getenv("app") : "null";
 
+
+
+        } else {
             sessionId = "a9446477-30da-4f42-833a-82de39967f97";
             appiumVersion = "2.5.4";
             takeScreenRecording = "true";
@@ -35,7 +34,7 @@ public class TestiniumEnvironment {
 
 
     public static Boolean isPlatformAndroid() {
-        String platform = System.getenv("platform");
+        platform = System.getenv("platform");
         return "Android".equals(platform);
     }
 
