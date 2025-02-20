@@ -40,13 +40,13 @@ public class TestiniumAndroidDriver extends AndroidDriver {
         System.out.println("UDID:"+System.getenv("udid"));
         DesiredCapabilities overridden = new DesiredCapabilities(capabilities);
         overridden.setCapability(PLATFORM_NAME, Platform.ANDROID);
-        overridden.setCapability(UDID, System.getenv("udid"));
-        overridden.setCapability("automationName", "UiAutomator2");
-        overridden.setCapability("appPackage", "com.gratis.android");
-        overridden.setCapability("appActivity", "com.app.gratis.ui.splash.SplashActivity");
-        overridden.setCapability("autoGrantPermissions", true);
+        overridden.setCapability(UDID, "R68R902ETFR");
+        overridden.setCapability("appium:automationName", "UiAutomator2");
+        overridden.setCapability("appium:appPackage", "com.gratis.android");
+        overridden.setCapability("appium:appActivity", "com.app.gratis.ui.splash.SplashActivity");
+        overridden.setCapability("appium:autoGrantPermissions", true);
         overridden.setCapability("appium:newCommandTimeout", 60000);
-        overridden.setCapability("app",TestiniumEnvironment.app);
+        //overridden.setCapability("app",TestiniumEnvironment.app);
         DeviceParkUtil.setDeviceParkOptions(overridden);
         System.out.println("Appium session creation request:" +overridden);
         return overridden;
@@ -82,7 +82,7 @@ public class TestiniumAndroidDriver extends AndroidDriver {
 
    @Override
    public void quit() {
-       //saveScreenRecord(this);
+       saveScreenRecord(this);
        TestiniumDriver.postQuit(this);
        super.quit();
    }

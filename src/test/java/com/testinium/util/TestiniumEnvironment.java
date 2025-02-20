@@ -1,5 +1,7 @@
 package com.testinium.util;
 
+import java.net.URL;
+
 public class TestiniumEnvironment {
 
     public static String sessionId;
@@ -9,6 +11,7 @@ public class TestiniumEnvironment {
     public static String platform;
     public static String app;
     public static String udid;
+    public static URL hubURL;
 
 
 
@@ -22,6 +25,12 @@ public class TestiniumEnvironment {
             takeScreenRecording = System.getenv("takeScreenRecording") != null ? System.getenv("takeScreenRecording") : "true";
             app = System.getenv("app") != null ? System.getenv("app") : "null";
             udid = System.getenv("udid") != null ? System.getenv("udid") : "null";
+            String hubUrlString = System.getenv("hubURL") != null ? System.getenv("hubURL") : "http://localhost:4723";
+            try {
+                hubURL = new URL(hubUrlString);
+            } catch (Exception e) {
+                throw new RuntimeException("Geçersiz hubURL: " + hubUrlString, e);
+            }
 
 
 

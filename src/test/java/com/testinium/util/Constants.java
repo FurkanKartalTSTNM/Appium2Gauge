@@ -10,7 +10,7 @@ public class Constants {
     public static String REPORT_FILE_NAME = "command-result";
     public static final String SESSION = "session";
     public static final String PLATFORM_NAME = "platformName";
-    public static final String UDID = "udid";
+    public static final String UDID = "appium:udid";
     public static final String VIDEO = "video-record";
 
     public static final List<String> ignoredCommands = Arrays.asList("screenshot", "start_recording_screen", "stop_recording_screen", "cookie", "window_handle", "window_handles", "window/current/maximize", "url", "title",

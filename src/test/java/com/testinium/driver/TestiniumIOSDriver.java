@@ -3,6 +3,7 @@ package com.testinium.driver;
 import com.testinium.util.Constants;
 import com.testinium.util.TestiniumEnvironment;
 import io.appium.java_client.ios.IOSDriver;
+import io.appium.java_client.screenrecording.CanRecordScreen;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
@@ -11,18 +12,17 @@ import java.net.URL;
 import static com.testinium.util.Constants.DEFAULT_PROFILE;
 import static com.testinium.util.Constants.UDID;
 import static com.testinium.util.DeviceParkUtil.setDeviceParkOptions;
-import static com.testinium.util.MediaUtil.recordingAllowed;
-import static com.testinium.util.MediaUtil.startScreenRecord;
+import static com.testinium.util.MediaUtil.*;
 
 
-public class TestiniumIOSDriver extends IOSDriver {
+public class TestiniumIOSDriver extends IOSDriver implements CanRecordScreen {
 
 
-    public TestiniumIOSDriver(URL hubUrl, DesiredCapabilities capabilities) {
+    public TestiniumIOSDriver(URL hubUrl, DesiredCapabilities capabilities) throws Exception {
         super(new TestiniumCommandExecutor(hubUrl), overrideCapabilities(capabilities));
         com.testinium.driver.TestiniumDriver.registerDriver(this.getSessionId(), this);
         if (recordingAllowed()){
-            startScreenRecord(this);
+            startScreenRecordingForIOS(this.getRemoteAddress(),this.getSessionId());
         }
     }
 
@@ -37,11 +37,11 @@ public class TestiniumIOSDriver extends IOSDriver {
 
         DesiredCapabilities overridden = new DesiredCapabilities(capabilities);
         overridden.setCapability(Constants.PLATFORM_NAME, Platform.IOS);
-        overridden.setCapability(UDID, TestiniumEnvironment.udid);
-        overridden.setCapability("automationName", "XCUITest");
-        overridden.setCapability("bundleId", "com.apple.Preferences");
-        capabilities.setCapability("app", TestiniumEnvironment.app);
-        overridden.setCapability("autoAcceptAlerts", true);
+        overridden.setCapability(UDID, "5ADFD78C-520D-4EB0-BCBC-E7293160659A");
+        overridden.setCapability("appium:automationName", "XCUITest");
+        overridden.setCapability("appium:bundleId", "com.apple.Preferences");
+        //capabilities.setCapability("app", TestiniumEnvironment.app);
+        overridden.setCapability("appium:autoAcceptAlerts", true);
         setDeviceParkOptions(overridden);
 
         System.out.println("deneme"+overridden);
@@ -49,8 +49,16 @@ public class TestiniumIOSDriver extends IOSDriver {
         return overridden;
     }
 
+
+
     @Override
     public void quit() {
+        try {
+            stopScreenRecordingForIOS(this.getRemoteAddress(), String.valueOf(this.getSessionId()));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
         TestiniumDriver.postQuit(this);
         super.quit();
     }

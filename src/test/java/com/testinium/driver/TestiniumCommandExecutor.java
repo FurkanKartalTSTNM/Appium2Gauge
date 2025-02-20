@@ -1,5 +1,6 @@
 package com.testinium.driver;
 
+import com.testinium.util.TestiniumEnvironment;
 import io.appium.java_client.remote.AppiumCommandExecutor;
 import org.openqa.selenium.remote.Command;
 import org.openqa.selenium.remote.Response;

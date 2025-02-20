@@ -3,7 +3,10 @@ package com.testinium.selector;
 import com.testinium.model.ElementInfo;
 import org.openqa.selenium.By;
 
-import static io.appium.java_client.MobileBy.*;
+import static io.appium.java_client.AppiumBy.*;
+import static org.openqa.selenium.By.cssSelector;
+import static org.openqa.selenium.By.xpath;
+
 
 public class IOSSelector implements Selector {
 

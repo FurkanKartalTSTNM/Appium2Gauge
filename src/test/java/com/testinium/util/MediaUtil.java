@@ -2,12 +2,20 @@ package com.testinium.util;
 
 import com.testinium.driver.TestiniumDriver;
 import io.appium.java_client.AppiumDriver;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.remote.Command;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.remote.SessionId;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,6 +40,41 @@ public class MediaUtil {
         Map<String, Object> params = new HashMap<>();
         driver.executeScript(Constants.Command.START_RECORDING, params);
     }
+    public static void startScreenRecordingForIOS(URL remoteUrl, SessionId sessionId) throws Exception {
+        String url = remoteUrl +"session/"+ sessionId + "/appium/start_recording_screen";
+
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+            HttpPost request = new HttpPost(url);
+            request.setHeader("Content-Type", "application/json");
+
+            // Start recording (empty JSON body)
+            String jsonBody = "{}";
+            request.setEntity(new StringEntity(jsonBody));
+
+            client.execute(request);
+            System.out.println("🎥 Ekran kaydı başladı...");
+        }
+    }
+
+    public static void stopScreenRecordingForIOS(URL remoteUrl, String sessionId) throws Exception {
+        String url = remoteUrl +"session/"+ sessionId + "/appium/stop_recording_screen";
+
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+            HttpPost request = new HttpPost(url);
+            request.setHeader("Content-Type", "application/json");
+
+            // Stop recording (empty JSON body)
+            String jsonBody = "{}";
+            request.setEntity(new StringEntity(jsonBody));
+
+            try (CloseableHttpResponse response = client.execute(request)) {
+                String responseBody = EntityUtils.toString(response.getEntity());
+                System.out.println("📥 Kayıt tamamlandı!");
+                FileUtil.saveVideoIOS((String) responseBody, VIDEO);
+            }
+
+        }
+    }
 
     public static void saveScreenRecord(RemoteWebDriver driver) {
         if (!TestiniumEnvironment.profile.equals("testinium")){
@@ -39,7 +82,7 @@ public class MediaUtil {
         }
         Object result = driver.executeScript(Constants.Command.STOP_RECORDING, new HashMap<>());
         try {
-            FileUtil.saveVideo((String) result, VIDEO);
+            FileUtil.saveVideoAndroid((String) result, VIDEO);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

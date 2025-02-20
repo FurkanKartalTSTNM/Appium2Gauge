@@ -1,9 +1,11 @@
 package com.testinium;
 
+import com.google.common.collect.ImmutableMap;
 import com.testinium.driver.TestiniumAndroidDriver;
 import com.testinium.driver.TestiniumDriver;
 import com.testinium.driver.TestiniumIOSDriver;
 import com.testinium.selector.SelectorType;
+import com.testinium.util.Constants;
 import com.testinium.util.TestiniumEnvironment;
 import com.thoughtworks.gauge.AfterScenario;
 import com.thoughtworks.gauge.BeforeScenario;
@@ -18,13 +20,13 @@ import org.openqa.selenium.support.ui.FluentWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
-import static com.testinium.util.Constants.PLATFORM_NAME;
 import static com.testinium.util.Constants.UDID;
 
 public class HookImp {
@@ -37,14 +39,18 @@ public class HookImp {
     protected static FluentWait<AppiumDriver> appiumFluentWait;
     protected static Selector selector ;
 
+    private static final String APPIUM_SERVER_URL = "http://127.0.0.1:4723/";
+
+
     Boolean DeviceAndroid =false;
     @BeforeScenario
     public void beforeScenario() {
         try {
                     if(DeviceAndroid || TestiniumEnvironment.isPlatformAndroid()){
-                        hubUrl = new URL("https://dev-devicepark-appium-gw-service.testinium.io/wd/hub");
+                        DesiredCapabilities overridden = new DesiredCapabilities();
+                        hubUrl = new URL(System.getenv("hubURL"));
                         DesiredCapabilities capabilities = new DesiredCapabilities();
-                        androidDriver = new TestiniumAndroidDriver(hubUrl, capabilities);
+                        androidDriver = new TestiniumAndroidDriver(hubUrl, overridden);
 
                         selector = SelectorFactory
                                 .createElementHelper(SelectorType.ANDROID);
@@ -58,9 +64,14 @@ public class HookImp {
                                 .ignoring(NoSuchElementException.class);
                     }
                     else {
-                        hubUrl = new URL("https://dev-devicepark-appium-gw-service.testinium.io/wd/hub");
-                        DesiredCapabilities capabilities = new DesiredCapabilities();
-                        iosDriver = new TestiniumIOSDriver(hubUrl, capabilities);
+                        hubUrl = new URL(System.getenv("hubURL"));
+                        DesiredCapabilities overridden = new DesiredCapabilities();
+                        overridden.setCapability(Constants.PLATFORM_NAME, Platform.IOS);
+                        overridden.setCapability(UDID, "5ADFD78C-520D-4EB0-BCBC-E7293160659A");
+                        overridden.setCapability("appium:automationName", "XCUITest");
+                        overridden.setCapability("appium:bundleId", "com.apple.Preferences");
+                        overridden.setCapability("appium:autoAcceptAlerts", true);
+                        iosDriver = new TestiniumIOSDriver(hubUrl, overridden);
 
 
                         selector = SelectorFactory
@@ -73,6 +84,8 @@ public class HookImp {
                     }
         } catch (MalformedURLException e) {
             logger.error(e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
