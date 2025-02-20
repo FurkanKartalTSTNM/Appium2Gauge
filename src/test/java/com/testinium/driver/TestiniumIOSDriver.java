@@ -28,6 +28,10 @@ public class TestiniumIOSDriver extends IOSDriver {
             return capabilities;
         }
 
+        System.out.println("Hub:"+System.getenv("hubURL"));
+
+        System.out.println("UDID:"+System.getenv("udid"));
+
         DesiredCapabilities overridden = new DesiredCapabilities(capabilities);
         overridden.setCapability(Constants.PLATFORM_NAME, Platform.IOS);
         overridden.setCapability(UDID, "723DDD46-03E1-488B-860B-7AAF64EC44E1");
@@ -37,6 +41,9 @@ public class TestiniumIOSDriver extends IOSDriver {
         //capabilities.setCapability("app", "https://testinium-dev-cloud.s3.eu-west-1.amazonaws.com/enterpriseMobileApps/3.2.15_1720_-82c49ca8.ipa");
         overridden.setCapability("autoAcceptAlerts", true);
         setDeviceParkOptions(overridden);
+
+        System.out.println("deneme"+overridden);
+
         return overridden;
     }
 
