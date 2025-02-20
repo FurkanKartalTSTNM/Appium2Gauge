@@ -14,8 +14,8 @@ public class DeviceParkUtil {
      */
     public static void setDeviceParkOptions(DesiredCapabilities capabilities) {
         HashMap<String, Object> deviceParkOptions = new HashMap<>();
-        deviceParkOptions.put(SESSION_ID, com.testinium.util.Environment.sessionId);
-        deviceParkOptions.put(APPIUM_VERSION, Environment.appiumVersion);
+        deviceParkOptions.put(SESSION_ID, TestiniumEnvironment.sessionId);
+        deviceParkOptions.put(APPIUM_VERSION, TestiniumEnvironment.appiumVersion);
         capabilities.setCapability(DP_OPTIONS, deviceParkOptions);
     }
 }

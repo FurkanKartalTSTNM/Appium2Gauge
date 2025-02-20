@@ -4,7 +4,7 @@ import com.testinium.driver.TestiniumAndroidDriver;
 import com.testinium.driver.TestiniumDriver;
 import com.testinium.driver.TestiniumIOSDriver;
 import com.testinium.selector.SelectorType;
-import com.testinium.util.FileUtil;
+import com.testinium.util.TestiniumEnvironment;
 import com.thoughtworks.gauge.AfterScenario;
 import com.thoughtworks.gauge.BeforeScenario;
 import io.appium.java_client.AppiumDriver;
@@ -37,24 +37,14 @@ public class HookImp {
     protected static FluentWait<AppiumDriver> appiumFluentWait;
     protected static Selector selector ;
 
+    Boolean DeviceAndroid =false;
     @BeforeScenario
     public void beforeScenario() {
         try {
-            Boolean isDeviceAndroid=false;
-                    if(isDeviceAndroid){
-                        TestiniumDriver.start();
-                        hubUrl = new URL(System.getenv("hubURL"));
+                    if(DeviceAndroid || TestiniumEnvironment.isPlatformAndroid()){
+                        hubUrl = new URL("https://dev-devicepark-appium-gw-service.testinium.io/wd/hub");
                         DesiredCapabilities capabilities = new DesiredCapabilities();
-                        capabilities.setCapability(PLATFORM_NAME, Platform.ANDROID);
-                        capabilities.setCapability(UDID, "R68R902ETFR");
-                        capabilities.setCapability("automationName", "UiAutomator2");
-                        capabilities.setCapability("appPackage", "com.gratis.android");
-                        capabilities.setCapability("appActivity", "com.app.gratis.ui.splash.SplashActivity");
-                        capabilities.setCapability("autoGrantPermissions", true);
-                        capabilities.setCapability("appium:newCommandTimeout", 60000);
-                        capabilities.setCapability("app", "https://gmt-spaces.ams3.cdn.digitaloceanspaces.com/documents/devicepark/Gratis-3.3.0_141.apk");
                         androidDriver = new TestiniumAndroidDriver(hubUrl, capabilities);
-                        //androidDriver.startRecordingScreen();
 
                         selector = SelectorFactory
                                 .createElementHelper(SelectorType.ANDROID);
@@ -68,28 +58,19 @@ public class HookImp {
                                 .ignoring(NoSuchElementException.class);
                     }
                     else {
-                        TestiniumDriver.start();
-                        hubUrl = new URL(System.getenv("hubURL"));
+                        hubUrl = new URL("https://dev-devicepark-appium-gw-service.testinium.io/wd/hub");
                         DesiredCapabilities capabilities = new DesiredCapabilities();
                         iosDriver = new TestiniumIOSDriver(hubUrl, capabilities);
 
 
                         selector = SelectorFactory
                                 .createElementHelper(SelectorType.IOS);
-
                         iosDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
                         appiumFluentWait = new FluentWait<AppiumDriver>(iosDriver);
-
-
                         appiumFluentWait.withTimeout(Duration.ofSeconds(8))
                                 .pollingEvery(Duration.ofMillis(350))
                                 .ignoring(NoSuchElementException.class);
-
-
                     }
-
-
-
         } catch (MalformedURLException e) {
             logger.error(e.getMessage());
         }
@@ -98,7 +79,10 @@ public class HookImp {
     @AfterScenario
     public void afterScenario() {
         try {
-            androidDriver.quit();
+            if(DeviceAndroid || TestiniumEnvironment.isPlatformAndroid()){
+                androidDriver.quit();
+            }
+                iosDriver.quit();
         } catch (Exception e) {
             logger.error(e.getMessage());
         }

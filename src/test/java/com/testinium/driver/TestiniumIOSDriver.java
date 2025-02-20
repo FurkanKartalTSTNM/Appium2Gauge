@@ -1,7 +1,7 @@
 package com.testinium.driver;
 
 import com.testinium.util.Constants;
-import com.testinium.util.Environment;
+import com.testinium.util.TestiniumEnvironment;
 import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -11,6 +11,7 @@ import java.net.URL;
 import static com.testinium.util.Constants.DEFAULT_PROFILE;
 import static com.testinium.util.Constants.UDID;
 import static com.testinium.util.DeviceParkUtil.setDeviceParkOptions;
+import static com.testinium.util.MediaUtil.recordingAllowed;
 import static com.testinium.util.MediaUtil.startScreenRecord;
 
 
@@ -20,11 +21,13 @@ public class TestiniumIOSDriver extends IOSDriver {
     public TestiniumIOSDriver(URL hubUrl, DesiredCapabilities capabilities) {
         super(new TestiniumCommandExecutor(hubUrl), overrideCapabilities(capabilities));
         com.testinium.driver.TestiniumDriver.registerDriver(this.getSessionId(), this);
-        startScreenRecord(this);
+        if (recordingAllowed()){
+            startScreenRecord(this);
+        }
     }
 
     private static DesiredCapabilities overrideCapabilities(DesiredCapabilities capabilities) {
-        if (!DEFAULT_PROFILE.equals(Environment.profile)) {
+        if (!DEFAULT_PROFILE.equals(TestiniumEnvironment.profile)) {
             return capabilities;
         }
 
@@ -34,7 +37,7 @@ public class TestiniumIOSDriver extends IOSDriver {
 
         DesiredCapabilities overridden = new DesiredCapabilities(capabilities);
         overridden.setCapability(Constants.PLATFORM_NAME, Platform.IOS);
-        overridden.setCapability(UDID, System.getenv("udid"));
+        overridden.setCapability(UDID, "00008101-001364541AE1001E");
         overridden.setCapability("automationName", "XCUITest");
         overridden.setCapability("bundleId", "com.apple.Preferences");
         //overridden.setCapability("startIWDP", true);

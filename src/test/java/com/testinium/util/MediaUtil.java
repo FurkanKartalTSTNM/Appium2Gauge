@@ -22,19 +22,20 @@ public class MediaUtil {
     }
 
     public static boolean recordingAllowed() {
-        return !Constants.DEFAULT_PROFILE.equals(com.testinium.util.Environment.profile) || !com.testinium.util.Environment.takeScreenRecording;
+        return !Constants.DEFAULT_PROFILE.equals(TestiniumEnvironment.profile) || !Constants.DEFAULT_VIDEO_ENABLED.equals(TestiniumEnvironment.takeScreenRecording);
     }
 
     public static void startScreenRecord(RemoteWebDriver driver) {
-        if (!com.testinium.util.Environment.profile.equals("testinium")){
+        if (!TestiniumEnvironment.profile.equals("testinium")){
             return;
         }
         Map<String, Object> params = new HashMap<>();
-        driver.executeScript(Constants.Command.START_RECORDING, params);
+        driver.executeScript("mobile: startScreenRecording", params);
+       // driver.executeScript(Constants.Command.START_RECORDING, params);
     }
 
     public static void saveScreenRecord(RemoteWebDriver driver) {
-        if (!Environment.profile.equals("testinium")){
+        if (!TestiniumEnvironment.profile.equals("testinium")){
             return;
         }
         Object result = driver.executeScript(Constants.Command.STOP_RECORDING, new HashMap<>());

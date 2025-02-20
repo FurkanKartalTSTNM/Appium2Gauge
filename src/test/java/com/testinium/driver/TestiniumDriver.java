@@ -25,7 +25,7 @@ public class TestiniumDriver {
 
     public static final List<CommandResultLog> commandResultLogs = new ArrayList<>();
 
-    public static final Environment ENVIRONMENT = new Environment();
+    public static final TestiniumEnvironment TESTINIUM_ENVIRONMENT = new TestiniumEnvironment();
 
     public static void registerDriver(SessionId sessionId, AppiumDriver driver) {
         DRIVER_MAP.put(sessionId, driver);
@@ -40,7 +40,7 @@ public class TestiniumDriver {
     }
 
     public static void postQuit(AppiumDriver driver) {
-        if (!Constants.DEFAULT_PROFILE.equals(Environment.profile)) {
+        if (!Constants.DEFAULT_PROFILE.equals(TestiniumEnvironment.profile)) {
             return;
         }
         FileUtil.saveListOfElementToFile(commandResultLogs, Constants.REPORT_FILE_NAME);
@@ -51,12 +51,10 @@ public class TestiniumDriver {
         commandResultLogs.add(log);
     }
 
-    public static void start(){
-        ENVIRONMENT.init();
-    }
+
 
     public static void buildCommandResultLogs(Command command, Date startDate, Response response, HttpRequest encodedCommand) {
-        if (!Constants.DEFAULT_PROFILE.equals(Environment.profile) ||
+        if (!Constants.DEFAULT_PROFILE.equals(TestiniumEnvironment.profile) ||
                 Boolean.FALSE.equals(CommandUtil.isAcceptable(encodedCommand.getUri(), ignoredCommands))
         ) {
             return;

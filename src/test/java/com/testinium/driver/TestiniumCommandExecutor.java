@@ -9,12 +9,14 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.Date;
 
+import static com.testinium.driver.TestiniumDriver.TESTINIUM_ENVIRONMENT;
 import static com.testinium.driver.TestiniumDriver.buildCommandResultLogs;
 
 public class TestiniumCommandExecutor extends AppiumCommandExecutor {
 
     public TestiniumCommandExecutor(URL remoteServer) {
         super(Collections.emptyMap(), remoteServer);
+        start();
     }
 
     @Override
@@ -24,6 +26,10 @@ public class TestiniumCommandExecutor extends AppiumCommandExecutor {
         HttpRequest encodedCommand = super.getCommandCodec().encode(command);
         buildCommandResultLogs(command, startDate, response, encodedCommand);
         return response;
+    }
+
+    public static void start(){
+        TESTINIUM_ENVIRONMENT.init();
     }
 
 }

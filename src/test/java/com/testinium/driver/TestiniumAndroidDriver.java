@@ -2,7 +2,7 @@ package com.testinium.driver;
 
 import com.testinium.util.Constants;
 import com.testinium.util.DeviceParkUtil;
-import com.testinium.util.Environment;
+import com.testinium.util.TestiniumEnvironment;
 import io.appium.java_client.CommandExecutionHelper;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.screenrecording.BaseStartScreenRecordingOptions;
@@ -16,8 +16,7 @@ import java.util.Map;
 
 import static com.testinium.util.Constants.PLATFORM_NAME;
 import static com.testinium.util.Constants.UDID;
-import static com.testinium.util.MediaUtil.saveScreenRecord;
-import static com.testinium.util.MediaUtil.startScreenRecord;
+import static com.testinium.util.MediaUtil.*;
 import static io.appium.java_client.MobileCommand.startRecordingScreenCommand;
 import static io.appium.java_client.MobileCommand.stopRecordingScreenCommand;
 
@@ -26,11 +25,13 @@ public class TestiniumAndroidDriver extends AndroidDriver {
     public TestiniumAndroidDriver(URL hubUrl, DesiredCapabilities capabilities) {
         super(new TestiniumCommandExecutor(hubUrl), overrideCapabilities(capabilities));
         TestiniumDriver.registerDriver(this.getSessionId(), this);
-        startScreenRecord(this);
+        if (recordingAllowed()){
+            startScreenRecord(this);
+        }
     }
 
     private static DesiredCapabilities overrideCapabilities(DesiredCapabilities capabilities) {
-        if (!Constants.DEFAULT_PROFILE.equals(Environment.profile)) {
+        if (!Constants.DEFAULT_PROFILE.equals(TestiniumEnvironment.profile)) {
             return capabilities;
         }
         System.out.println("Hub:"+System.getenv("hubURL"));
@@ -80,7 +81,7 @@ public class TestiniumAndroidDriver extends AndroidDriver {
 
    @Override
    public void quit() {
-       saveScreenRecord(this);
+       //saveScreenRecord(this);
        TestiniumDriver.postQuit(this);
        super.quit();
    }
