@@ -37,7 +37,7 @@ public class TestiniumIOSDriver extends IOSDriver {
 
         DesiredCapabilities overridden = new DesiredCapabilities(capabilities);
         overridden.setCapability(Constants.PLATFORM_NAME, Platform.IOS);
-        overridden.setCapability(UDID, "00008101-001364541AE1001E");
+        overridden.setCapability(UDID, TestiniumEnvironment.udid);
         overridden.setCapability("automationName", "XCUITest");
         overridden.setCapability("bundleId", "com.apple.Preferences");
         capabilities.setCapability("app", TestiniumEnvironment.app);

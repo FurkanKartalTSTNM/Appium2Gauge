@@ -8,6 +8,8 @@ public class TestiniumEnvironment {
     public static String takeScreenRecording;
     public static String platform;
     public static String app;
+    public static String udid;
+
 
 
     public void init() {
@@ -19,6 +21,8 @@ public class TestiniumEnvironment {
             appiumVersion = System.getenv("appiumVersion") != null ? System.getenv("appiumVersion") : "2.5.4";
             takeScreenRecording = System.getenv("takeScreenRecording") != null ? System.getenv("takeScreenRecording") : "true";
             app = System.getenv("app") != null ? System.getenv("app") : "null";
+            udid = System.getenv("udid") != null ? System.getenv("udid") : "null";
+
 
 
 
