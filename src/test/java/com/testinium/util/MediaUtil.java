@@ -22,7 +22,7 @@ public class MediaUtil {
     }
 
     public static boolean recordingAllowed() {
-        return !Constants.DEFAULT_PROFILE.equals(TestiniumEnvironment.profile) || !Constants.DEFAULT_VIDEO_ENABLED.equals(TestiniumEnvironment.takeScreenRecording);
+        return Constants.DEFAULT_PROFILE.equals(TestiniumEnvironment.profile) || Constants.DEFAULT_VIDEO_ENABLED.equals(TestiniumEnvironment.takeScreenRecording);
     }
 
     public static void startScreenRecord(RemoteWebDriver driver) {
