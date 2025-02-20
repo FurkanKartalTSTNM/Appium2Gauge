@@ -34,7 +34,7 @@ public class TestiniumIOSDriver extends IOSDriver {
 
         DesiredCapabilities overridden = new DesiredCapabilities(capabilities);
         overridden.setCapability(Constants.PLATFORM_NAME, Platform.IOS);
-        overridden.setCapability(UDID, "723DDD46-03E1-488B-860B-7AAF64EC44E1");
+        overridden.setCapability(UDID, System.getenv("udid"));
         overridden.setCapability("automationName", "XCUITest");
         overridden.setCapability("bundleId", "com.apple.Preferences");
         //overridden.setCapability("startIWDP", true);
