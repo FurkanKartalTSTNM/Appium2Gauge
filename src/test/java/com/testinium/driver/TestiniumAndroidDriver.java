@@ -26,6 +26,7 @@ public class TestiniumAndroidDriver extends AndroidDriver {
         super(new TestiniumCommandExecutor(hubUrl), overrideCapabilities(capabilities));
         TestiniumDriver.registerDriver(this.getSessionId(), this);
         if (recordingAllowed()){
+            System.out.println("recordingAllowed");
             startScreenRecord(this);
         }
     }
