@@ -37,7 +37,7 @@ public class TestiniumIOSDriver extends IOSDriver implements CanRecordScreen {
 
         DesiredCapabilities overridden = new DesiredCapabilities(capabilities);
         overridden.setCapability(Constants.PLATFORM_NAME, Platform.IOS);
-        overridden.setCapability(UDID, "5ADFD78C-520D-4EB0-BCBC-E7293160659A");
+        overridden.setCapability(UDID, TestiniumEnvironment.udid);
         overridden.setCapability("appium:automationName", "XCUITest");
         overridden.setCapability("appium:bundleId", "com.apple.Preferences");
         //capabilities.setCapability("app", TestiniumEnvironment.app);
