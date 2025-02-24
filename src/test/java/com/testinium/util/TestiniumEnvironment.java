@@ -21,7 +21,9 @@ public class TestiniumEnvironment {
     public void init() {
         profile = "testinium";
         String envProfile = System.getenv("profile");
-        System.out.println("platform:" +System.getProperty("platform"));
+        System.out.println("platform with property:" +System.getProperty("platform"));
+        System.out.println("platform with env:" +System.getenv("platform"));
+
 
         if (envProfile.equals("testinium")) {
             sessionId = System.getenv("sessionId") != null ? System.getenv("sessionId") : "b044c078-d8f4-4a9e-bcbe-ff8ad92fcd87";
