@@ -2,7 +2,6 @@ package com.testinium;
 
 import com.testinium.driver.TestiniumAndroidDriver;
 import com.testinium.driver.TestiniumIOSDriver;
-import com.testinium.reader.ConfigReader;
 import com.testinium.selector.SelectorType;
 import com.testinium.util.Constants;
 import com.testinium.util.TestiniumEnvironment;
@@ -39,12 +38,10 @@ public class HookImp {
     protected static FluentWait<AppiumDriver> appiumFluentWait;
     protected static Selector selector ;
 
-    Boolean DeviceAndroid =false;
+    Boolean DeviceAndroid =true;
     @BeforeScenario
     public void beforeScenario() {
         try {
-            ConfigReader configReader = new ConfigReader();
-
             System.out.println("isAndroid:" +TestiniumEnvironment.isPlatformAndroid());
                     if(DeviceAndroid || TestiniumEnvironment.isPlatformAndroid()){
                         DesiredCapabilities overridden = new DesiredCapabilities();
@@ -55,7 +52,7 @@ public class HookImp {
                         overridden.setCapability("appium:appActivity", "com.app.gratis.ui.splash.SplashActivity");
                         overridden.setCapability("appium:autoGrantPermissions", true);
                         overridden.setCapability("appium:newCommandTimeout", 60000);
-                        hubUrl = new URL(configReader.getPropertyValue("hubUrl"));
+                        hubUrl = new URL("http://192.168.1.89:4723/");
                         androidDriver = new TestiniumAndroidDriver(hubUrl,overridden);
                         selector = SelectorFactory
                                 .createElementHelper(SelectorType.ANDROID);
@@ -70,7 +67,7 @@ public class HookImp {
                     }
                     else {
                         System.out.println("IOS");
-                        hubUrl = new URL(configReader.getPropertyValue("hubUrl"));
+                        hubUrl = new URL("http://192.168.1.89:4723/");
                         DesiredCapabilities overridden = new DesiredCapabilities();
                         overridden.setCapability(Constants.PLATFORM_NAME, Platform.IOS);
                         overridden.setCapability(UDID, "5ADFD78C-520D-4EB0-BCBC-E7293160659A");
