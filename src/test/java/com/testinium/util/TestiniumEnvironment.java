@@ -23,7 +23,7 @@ public class TestiniumEnvironment {
         System.out.println("demo:" +configReader.getPropertyValue("furkan"));
         profile = "testinium";
         String envProfile = System.getenv("profile");
-        System.out.println("platform with property:" +System.getProperty("platform"));
+        System.out.println("configReader platform:" +configReader.getPropertyValue("platform"));
         System.out.println("platform with env:" +System.getenv("platform"));
 
 
