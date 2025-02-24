@@ -44,7 +44,7 @@ public class HookImp {
             System.out.println("isAndroid:" +TestiniumEnvironment.isPlatformAndroid());
                     if(DeviceAndroid || TestiniumEnvironment.isPlatformAndroid()){
                         DesiredCapabilities overridden = new DesiredCapabilities();
-                        hubUrl = new URL("deneme");
+                        hubUrl = new URL("http://192.168.1.89:4723/");
                         System.out.println("Android");
                         DesiredCapabilities capabilities = new DesiredCapabilities();
                         androidDriver = new TestiniumAndroidDriver(hubUrl,capabilities);
@@ -61,7 +61,7 @@ public class HookImp {
                     }
                     else {
                         System.out.println("IOS");
-                        hubUrl = new URL("deneme");
+                        hubUrl = new URL("http://192.168.1.89:4723/");
                         DesiredCapabilities overridden = new DesiredCapabilities();
                         overridden.setCapability(Constants.PLATFORM_NAME, Platform.IOS);
                         overridden.setCapability(UDID, "5ADFD78C-520D-4EB0-BCBC-E7293160659A");
