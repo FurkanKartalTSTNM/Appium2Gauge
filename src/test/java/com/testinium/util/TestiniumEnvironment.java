@@ -40,11 +40,15 @@ public class TestiniumEnvironment {
 
             System.out.println("sessionId:" +sessionId );
             System.out.println("appiumVersion:" +appiumVersion );
-            System.out.println("sessionId:" +takeScreenRecording );
-            System.out.println("sessionId:" +takeScreenshot );
+            System.out.println("takeScreenRecording:" +takeScreenRecording );
+            System.out.println("takeScreenshot:" +takeScreenshot );
             System.out.println("app:" +app );
             System.out.println("udid:" +udid );
-            System.out.println("takeScreenshot:" +appPackage );
+            System.out.println("appPackage:" +appPackage );
+            System.out.println("appActivity:" +appActivity );
+            System.out.println("bundleId:" +bundleId );
+            System.out.println("hubUrl:" +hubUrl );
+
 
         }
 
