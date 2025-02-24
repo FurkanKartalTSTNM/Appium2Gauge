@@ -43,7 +43,7 @@ public class HookImp {
         try {
                     if(DeviceAndroid || TestiniumEnvironment.isPlatformAndroid()){
                         DesiredCapabilities overridden = new DesiredCapabilities();
-                        hubUrl = new URL(System.getenv("hubURL"));
+                        hubUrl = new URL("deneme");
                         DesiredCapabilities capabilities = new DesiredCapabilities();
                         androidDriver = new TestiniumAndroidDriver(hubUrl,capabilities);
                         selector = SelectorFactory
@@ -58,7 +58,7 @@ public class HookImp {
                                 .ignoring(NoSuchElementException.class);
                     }
                     else {
-                        hubUrl = new URL(System.getenv("hubURL"));
+                        hubUrl = new URL("deneme");
                         DesiredCapabilities overridden = new DesiredCapabilities();
                         overridden.setCapability(Constants.PLATFORM_NAME, Platform.IOS);
                         overridden.setCapability(UDID, "5ADFD78C-520D-4EB0-BCBC-E7293160659A");

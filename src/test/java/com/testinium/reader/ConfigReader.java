@@ -16,9 +16,4 @@ public class ConfigReader {
             return null;
         }
     }
-
-    public void printProperty() {
-        String value = getPropertyValue("your.property.key");
-        System.out.println("Property Value: " + value);
-    }
 }

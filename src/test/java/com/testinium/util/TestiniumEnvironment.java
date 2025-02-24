@@ -4,6 +4,8 @@ import com.testinium.reader.ConfigReader;
 
 public class TestiniumEnvironment {
 
+    private  ConfigReader configReader;
+
     public static String sessionId;
     public static String appiumVersion;
     public static String profile;
@@ -17,14 +19,9 @@ public class TestiniumEnvironment {
     public static String bundleId;
     public static String hubUrl;
 
-
     public void init() {
-        ConfigReader configReader = new ConfigReader();
-        System.out.println("demo:" +configReader.getPropertyValue("furkan"));
         profile = "testinium";
-        String envProfile = System.getenv("profile");
-        System.out.println("configReader platform:" +configReader.getPropertyValue("platform"));
-        System.out.println("platform with env:" +System.getenv("platform"));
+        String envProfile = configReader.getPropertyValue("profile");
 
 
         if (envProfile.equals("testinium")) {
@@ -34,11 +31,10 @@ public class TestiniumEnvironment {
             takeScreenshot = configReader.getPropertyValue("takeScreenshot") != null ? configReader.getPropertyValue("takeScreenRecording") : "true";
             app = configReader.getPropertyValue("app") != null ? configReader.getPropertyValue("app") : "null";
             udid = configReader.getPropertyValue("udid") != null ? configReader.getPropertyValue("udid") : "null";
-            appPackage = configReader.getPropertyValue("appPackage") != null ? configReader.getPropertyValue("appPackage") : "null";
-            appActivity = configReader.getPropertyValue("appActivity") != null ? configReader.getPropertyValue("appActivity") : "null";
-            bundleId = configReader.getPropertyValue("bundleId") != null ? configReader.getPropertyValue("bundleId") : "null";
-
-            hubUrl = System.getenv("hubUrl");
+            appPackage = configReader.getPropertyValue("appPackage") != null ? configReader.getPropertyValue("appPackage") : "com.gratis.android";
+            appActivity = configReader.getPropertyValue("appActivity") != null ? configReader.getPropertyValue("appActivity") : "com.app.gratis.ui.splash.SplashActivity";
+            bundleId = configReader.getPropertyValue("bundleId") != null ? configReader.getPropertyValue("bundleId") : "com.apple.Preferences";
+            hubUrl = configReader.getPropertyValue("hubUrl");
 
 
             System.out.println("sessionId:" +sessionId );
@@ -56,7 +52,8 @@ public class TestiniumEnvironment {
 
 
     public static Boolean isPlatformAndroid() {
-        platform = System.getenv("platform");
+        ConfigReader configReader = new ConfigReader();
+        platform = configReader.getPropertyValue("platform");
         return "Android".equals(platform);
     }
 

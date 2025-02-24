@@ -34,7 +34,7 @@ public class TestiniumIOSDriver extends IOSDriver implements CanRecordScreen {
         overridden.setCapability(Constants.PLATFORM_NAME, Platform.IOS);
         overridden.setCapability(UDID, TestiniumEnvironment.udid);
         overridden.setCapability("appium:automationName", "XCUITest");
-        overridden.setCapability("appium:bundleId", "com.apple.Preferences");
+        overridden.setCapability("appium:bundleId", TestiniumEnvironment.bundleId);
         capabilities.setCapability("app", TestiniumEnvironment.app);
         overridden.setCapability("appium:autoAcceptAlerts", true);
         setDeviceParkOptions(overridden);
