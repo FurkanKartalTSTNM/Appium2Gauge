@@ -44,6 +44,7 @@ public class HookImp {
                     if(DeviceAndroid || TestiniumEnvironment.isPlatformAndroid()){
                         DesiredCapabilities overridden = new DesiredCapabilities();
                         hubUrl = new URL("deneme");
+                        System.out.println("Android");
                         DesiredCapabilities capabilities = new DesiredCapabilities();
                         androidDriver = new TestiniumAndroidDriver(hubUrl,capabilities);
                         selector = SelectorFactory
@@ -58,6 +59,7 @@ public class HookImp {
                                 .ignoring(NoSuchElementException.class);
                     }
                     else {
+                        System.out.println("IOS");
                         hubUrl = new URL("deneme");
                         DesiredCapabilities overridden = new DesiredCapabilities();
                         overridden.setCapability(Constants.PLATFORM_NAME, Platform.IOS);
