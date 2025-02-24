@@ -1,8 +1,6 @@
 package com.testinium;
 
-import com.google.common.collect.ImmutableMap;
 import com.testinium.driver.TestiniumAndroidDriver;
-import com.testinium.driver.TestiniumDriver;
 import com.testinium.driver.TestiniumIOSDriver;
 import com.testinium.selector.SelectorType;
 import com.testinium.util.Constants;
@@ -47,8 +45,7 @@ public class HookImp {
                         DesiredCapabilities overridden = new DesiredCapabilities();
                         hubUrl = new URL(System.getenv("hubURL"));
                         DesiredCapabilities capabilities = new DesiredCapabilities();
-                        androidDriver = new TestiniumAndroidDriver(hubUrl, overridden);
-
+                        androidDriver = new TestiniumAndroidDriver(hubUrl,capabilities);
                         selector = SelectorFactory
                                 .createElementHelper(SelectorType.ANDROID);
 
