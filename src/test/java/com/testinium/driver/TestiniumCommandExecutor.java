@@ -6,6 +6,7 @@ import org.openqa.selenium.remote.Command;
 import org.openqa.selenium.remote.Response;
 import org.openqa.selenium.remote.http.HttpRequest;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collections;
 import java.util.Date;
@@ -16,8 +17,8 @@ import static com.testinium.driver.TestiniumDriver.buildCommandResultLogs;
 public class TestiniumCommandExecutor extends AppiumCommandExecutor {
 
     public TestiniumCommandExecutor(URL remoteServer) {
-        super(Collections.emptyMap(), remoteServer);
-        start();
+        super(Collections.emptyMap(), setRemoteUrl(remoteServer));
+
     }
 
     @Override
@@ -29,8 +30,19 @@ public class TestiniumCommandExecutor extends AppiumCommandExecutor {
         return response;
     }
 
-    public static void start(){
+    public static void startEnvironmentVariables(){
         TESTINIUM_ENVIRONMENT.init();
     }
+
+    public static URL setRemoteUrl(URL url){
+
+        startEnvironmentVariables();
+        try {
+            return new URL(TestiniumEnvironment.hubUrl);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 }
