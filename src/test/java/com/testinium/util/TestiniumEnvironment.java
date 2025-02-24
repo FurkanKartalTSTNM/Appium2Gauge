@@ -21,6 +21,7 @@ public class TestiniumEnvironment {
     public void init() {
         ConfigReader configReader = new ConfigReader();
         profile = "testinium";
+        System.out.println("profffile:" + configReader.getPropertyValue("profile"));
         String envProfile = (configReader != null && configReader.getPropertyValue("profile") != null) ?
                 configReader.getPropertyValue("profile") : "testinium";
 
