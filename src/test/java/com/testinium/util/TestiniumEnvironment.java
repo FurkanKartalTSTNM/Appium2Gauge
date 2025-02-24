@@ -21,8 +21,8 @@ public class TestiniumEnvironment {
     public void init() {
         profile = "testinium";
         String envProfile = System.getenv("profile");
-        System.out.println("platform with property:" +System.getProperty("platform"));
-        System.out.println("platform with env:" +System.getenv("platform"));
+        System.out.println("tags with property:" +System.getProperty("tags"));
+        System.out.println("tags with env:" +System.getenv("tags"));
 
 
         if (envProfile.equals("testinium")) {
