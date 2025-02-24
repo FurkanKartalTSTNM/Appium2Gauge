@@ -55,6 +55,7 @@ public class TestiniumEnvironment {
         ConfigReader configReader = new ConfigReader();
         System.out.println("gettingPlatform"+ configReader.getPropertyValue("platform"));
         platform = configReader.getPropertyValue("platform");
+        System.out.println("return:" +"Android".equals(platform));
         return "Android".equals(platform);
     }
 
