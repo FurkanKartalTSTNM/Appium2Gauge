@@ -40,7 +40,7 @@ public class TestiniumAndroidDriver extends AndroidDriver {
         System.out.println("UDID:"+System.getenv("udid"));
         DesiredCapabilities overridden = new DesiredCapabilities(capabilities);
         overridden.setCapability(PLATFORM_NAME, Platform.ANDROID);
-        overridden.setCapability(UDID, "R68R902ETFR");
+        overridden.setCapability(UDID, TestiniumEnvironment.udid);
         overridden.setCapability("appium:automationName", "UiAutomator2");
         overridden.setCapability("appium:appPackage", "com.gratis.android");
         overridden.setCapability("appium:appActivity", "com.app.gratis.ui.splash.SplashActivity");
