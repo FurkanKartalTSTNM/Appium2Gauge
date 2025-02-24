@@ -11,7 +11,6 @@ public class TestiniumEnvironment {
     public static String platform;
     public static String app;
     public static String udid;
-    public static URL hubURL;
 
 
 
@@ -20,19 +19,14 @@ public class TestiniumEnvironment {
         String envProfile = System.getenv("profile");
 
         if (envProfile.equals("testinium")) {
-            sessionId = System.getenv("sessionId") != null ? System.getenv("sessionId") : "default-session-id";
+            sessionId = System.getenv("sessionId") != null ? System.getenv("sessionId") : "b044c078-d8f4-4a9e-bcbe-ff8ad92fcd87";
             appiumVersion = System.getenv("appiumVersion") != null ? System.getenv("appiumVersion") : "2.5.4";
             takeScreenRecording = System.getenv("takeScreenRecording") != null ? System.getenv("takeScreenRecording") : "true";
             app = System.getenv("app") != null ? System.getenv("app") : "null";
             udid = System.getenv("udid") != null ? System.getenv("udid") : "null";
             String hubUrlString = System.getenv("hubURL") != null ? System.getenv("hubURL") : "http://localhost:4723";
-            try {
-                hubURL = new URL(hubUrlString);
-            } catch (Exception e) {
-                throw new RuntimeException("Geçersiz hubURL: " + hubUrlString, e);
-            }
 
-
+            System.out.println("sessionId:" +System.getProperty("sessionId") );
 
 
         } else {
