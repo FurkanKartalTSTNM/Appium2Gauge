@@ -35,7 +35,7 @@ public class TestiniumEnvironment {
             appPackage = configReader.getPropertyValue("appPackage") != null ? configReader.getPropertyValue("appPackage") : "com.gratis.android";
             appActivity = configReader.getPropertyValue("appActivity") != null ? configReader.getPropertyValue("appActivity") : "com.app.gratis.ui.splash.SplashActivity";
             bundleId = configReader.getPropertyValue("bundleId") != null ? configReader.getPropertyValue("bundleId") : "com.apple.Preferences";
-            hubUrl = configReader.getPropertyValue("hubUrl");
+            hubUrl = configReader.getPropertyValue("hubUrl") != null ? configReader.getPropertyValue("hubUrl") : "https://dev-devicepark-appium-gw-service.testinium.io/wd/hub";
 
 
             System.out.println("sessionId:" +sessionId );
