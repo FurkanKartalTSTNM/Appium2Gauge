@@ -4,7 +4,6 @@ import com.testinium.reader.ConfigReader;
 
 public class TestiniumEnvironment {
 
-    private  ConfigReader configReader;
 
     public static String sessionId;
     public static String appiumVersion;
@@ -20,8 +19,10 @@ public class TestiniumEnvironment {
     public static String hubUrl;
 
     public void init() {
+        ConfigReader configReader = new ConfigReader();
         profile = "testinium";
-        String envProfile = configReader.getPropertyValue("profile");
+        String envProfile = (configReader != null && configReader.getPropertyValue("profile") != null) ?
+                configReader.getPropertyValue("profile") : "testinium";
 
 
         if (envProfile.equals("testinium")) {
