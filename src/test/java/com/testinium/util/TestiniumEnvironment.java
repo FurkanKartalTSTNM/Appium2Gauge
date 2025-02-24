@@ -30,8 +30,8 @@ public class TestiniumEnvironment {
             appiumVersion = configReader.getPropertyValue("appiumVersion") != null ? configReader.getPropertyValue("appiumVersion") : "2.5.4";
             takeScreenRecording = configReader.getPropertyValue("takeScreenRecording") != null ? configReader.getPropertyValue("takeScreenRecording") : "true";
             takeScreenshot = configReader.getPropertyValue("takeScreenshot") != null ? configReader.getPropertyValue("takeScreenRecording") : "true";
-            app = configReader.getPropertyValue("app") != null ? configReader.getPropertyValue("app") : "null";
-            udid = configReader.getPropertyValue("udid") != null ? configReader.getPropertyValue("udid") : "null";
+            app = configReader.getPropertyValue("app") != null ? configReader.getPropertyValue("app") : null;
+            udid = configReader.getPropertyValue("udid") != null ? configReader.getPropertyValue("udid") : "D55BA86F-809A-4713-92F0-AC1E573FE77F";
             appPackage = configReader.getPropertyValue("appPackage") != null ? configReader.getPropertyValue("appPackage") : "com.gratis.android";
             appActivity = configReader.getPropertyValue("appActivity") != null ? configReader.getPropertyValue("appActivity") : "com.app.gratis.ui.splash.SplashActivity";
             bundleId = configReader.getPropertyValue("bundleId") != null ? configReader.getPropertyValue("bundleId") : "com.apple.Preferences";
