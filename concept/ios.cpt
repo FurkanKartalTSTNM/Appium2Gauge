@@ -24,14 +24,6 @@ This is a concept file with following syntax for each concept.
 * Elementine tıkla IOS "dashboardIOS"
 * "1" saniye bekle
 
-# Kategoriler tiklanir(IOS)
-* "kampanyaSec" elementinin hizasından sağdan sola "3" kere kaydır
-* "kampanyaSec" elementinin hizasından soldan sağa "2" kere kaydır
-* "1" saniye bekle
-
-# <text> isimli kategori seçilir.IOS
-* "categoryName" li ve değeri <text> e eşit olan elementli bulana kadar swipe et ve tıkla
-
 # Settings Tiklamalar
 * Elementin yüklenmesini bekle "Genel"
 * Elementine tıkla IOS "Genel"

@@ -74,8 +74,11 @@ public class TestiniumDriver {
         commandResultLog.setRuntime(runtime);
 
         try {
-            String screenShotFilePath = MediaUtil.takeScreenShot(command);
-            commandResultLog.setScreenShotFilePath(screenShotFilePath);
+            if (TestiniumEnvironment.takeScreenshot.equals("true")){
+                String screenShotFilePath = MediaUtil.takeScreenShot(command);
+                commandResultLog.setScreenShotFilePath(screenShotFilePath);
+            }
+
         } catch (IOException e) {
             throw new ScreenshotException(command.getName());
         }

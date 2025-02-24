@@ -11,6 +11,8 @@ public class TestiniumEnvironment {
     public static String platform;
     public static String app;
     public static String udid;
+    public static String takeScreenshot;
+
 
 
 
@@ -22,18 +24,18 @@ public class TestiniumEnvironment {
             sessionId = System.getenv("sessionId") != null ? System.getenv("sessionId") : "b044c078-d8f4-4a9e-bcbe-ff8ad92fcd87";
             appiumVersion = System.getenv("appiumVersion") != null ? System.getenv("appiumVersion") : "2.5.4";
             takeScreenRecording = System.getenv("takeScreenRecording") != null ? System.getenv("takeScreenRecording") : "true";
+            takeScreenshot = System.getenv("takeScreenshot") != null ? System.getenv("takeScreenRecording") : "true";
             app = System.getenv("app") != null ? System.getenv("app") : "null";
             udid = System.getenv("udid") != null ? System.getenv("udid") : "null";
-            String hubUrlString = System.getenv("hubURL") != null ? System.getenv("hubURL") : "http://localhost:4723";
 
-            System.out.println("sessionId:" +System.getProperty("sessionId") );
+            System.out.println("sessionId:" +System.getenv("sessionId") );
+            System.out.println("appiumVersion:" +System.getenv("appiumVersion") );
+            System.out.println("sessionId:" +System.getenv("sessionId") );
+            System.out.println("sessionId:" +System.getenv("sessionId") );
+            System.out.println("app:" +System.getenv("app") );
+            System.out.println("udid:" +System.getenv("udid") );
+            System.out.println("takeScreenshot:" +System.getenv("takeScreenshot") );
 
-
-        } else {
-            sessionId = "a9446477-30da-4f42-833a-82de39967f97";
-            appiumVersion = "2.5.4";
-            takeScreenRecording = "true";
-            profile = "testinium";
         }
 
         System.out.println("Environment Variables Initialized");

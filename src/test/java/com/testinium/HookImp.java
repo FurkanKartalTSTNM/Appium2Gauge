@@ -39,9 +39,6 @@ public class HookImp {
     protected static FluentWait<AppiumDriver> appiumFluentWait;
     protected static Selector selector ;
 
-    private static final String APPIUM_SERVER_URL = "http://127.0.0.1:4723/";
-
-
     Boolean DeviceAndroid =false;
     @BeforeScenario
     public void beforeScenario() {

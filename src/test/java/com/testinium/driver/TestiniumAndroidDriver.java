@@ -35,9 +35,7 @@ public class TestiniumAndroidDriver extends AndroidDriver {
         if (!Constants.DEFAULT_PROFILE.equals(TestiniumEnvironment.profile)) {
             return capabilities;
         }
-        System.out.println("Hub:"+System.getenv("hubURL"));
 
-        System.out.println("UDID:"+System.getenv("udid"));
         DesiredCapabilities overridden = new DesiredCapabilities(capabilities);
         overridden.setCapability(PLATFORM_NAME, Platform.ANDROID);
         overridden.setCapability(UDID, TestiniumEnvironment.udid);
