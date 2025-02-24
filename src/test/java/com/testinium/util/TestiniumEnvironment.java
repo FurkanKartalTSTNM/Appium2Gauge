@@ -1,5 +1,7 @@
 package com.testinium.util;
 
+import com.testinium.reader.ConfigReader;
+
 public class TestiniumEnvironment {
 
     public static String sessionId;
@@ -16,9 +18,9 @@ public class TestiniumEnvironment {
     public static String hubUrl;
 
 
-
-
     public void init() {
+        ConfigReader configReader = new ConfigReader();
+        System.out.println("demo:" +configReader.getPropertyValue("furkan"));
         profile = "testinium";
         String envProfile = System.getenv("profile");
         System.out.println("platform with property:" +System.getProperty("platform"));
@@ -26,26 +28,26 @@ public class TestiniumEnvironment {
 
 
         if (envProfile.equals("testinium")) {
-            sessionId = System.getenv("sessionId") != null ? System.getenv("sessionId") : "b044c078-d8f4-4a9e-bcbe-ff8ad92fcd87";
-            appiumVersion = System.getenv("appiumVersion") != null ? System.getenv("appiumVersion") : "2.5.4";
-            takeScreenRecording = System.getenv("takeScreenRecording") != null ? System.getenv("takeScreenRecording") : "true";
-            takeScreenshot = System.getenv("takeScreenshot") != null ? System.getenv("takeScreenRecording") : "true";
-            app = System.getenv("app") != null ? System.getenv("app") : "null";
-            udid = System.getenv("udid") != null ? System.getenv("udid") : "null";
-            appPackage = System.getenv("appPackage") != null ? System.getenv("appPackage") : "null";
-            appActivity = System.getenv("appActivity") != null ? System.getenv("appActivity") : "null";
-            bundleId = System.getenv("bundleId") != null ? System.getenv("bundleId") : "null";
+            sessionId = configReader.getPropertyValue("sessionId") != null ? configReader.getPropertyValue("sessionId") : "b044c078-d8f4-4a9e-bcbe-ff8ad92fcd87";
+            appiumVersion = configReader.getPropertyValue("appiumVersion") != null ? configReader.getPropertyValue("appiumVersion") : "2.5.4";
+            takeScreenRecording = configReader.getPropertyValue("takeScreenRecording") != null ? configReader.getPropertyValue("takeScreenRecording") : "true";
+            takeScreenshot = configReader.getPropertyValue("takeScreenshot") != null ? configReader.getPropertyValue("takeScreenRecording") : "true";
+            app = configReader.getPropertyValue("app") != null ? configReader.getPropertyValue("app") : "null";
+            udid = configReader.getPropertyValue("udid") != null ? configReader.getPropertyValue("udid") : "null";
+            appPackage = configReader.getPropertyValue("appPackage") != null ? configReader.getPropertyValue("appPackage") : "null";
+            appActivity = configReader.getPropertyValue("appActivity") != null ? configReader.getPropertyValue("appActivity") : "null";
+            bundleId = configReader.getPropertyValue("bundleId") != null ? configReader.getPropertyValue("bundleId") : "null";
 
             hubUrl = System.getenv("hubUrl");
 
 
-            System.out.println("sessionId:" +System.getenv("sessionId") );
-            System.out.println("appiumVersion:" +System.getenv("appiumVersion") );
-            System.out.println("sessionId:" +System.getenv("sessionId") );
-            System.out.println("sessionId:" +System.getenv("sessionId") );
-            System.out.println("app:" +System.getenv("app") );
-            System.out.println("udid:" +System.getenv("udid") );
-            System.out.println("takeScreenshot:" +System.getenv("takeScreenshot") );
+            System.out.println("sessionId:" +sessionId );
+            System.out.println("appiumVersion:" +appiumVersion );
+            System.out.println("sessionId:" +takeScreenRecording );
+            System.out.println("sessionId:" +takeScreenshot );
+            System.out.println("app:" +app );
+            System.out.println("udid:" +udid );
+            System.out.println("takeScreenshot:" +appPackage );
 
         }
 
