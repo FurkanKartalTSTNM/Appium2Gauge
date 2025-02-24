@@ -7,6 +7,8 @@ public class Constants {
 
     public static String DEFAULT_PROFILE = "testinium";
     public static String DEFAULT_VIDEO_ENABLED = "true";
+    public static String DEFAULT_SCREENSHOT_ENABLED = "true";
+    public static String DEFAULT_SCREENSHOT_ONLY_FAILURE = "true";
     public static String REPORT_FILE_NAME = "command-result";
     public static final String SESSION = "session";
     public static final String PLATFORM_NAME = "platformName";

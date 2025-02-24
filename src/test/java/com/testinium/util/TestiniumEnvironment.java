@@ -12,6 +12,9 @@ public class TestiniumEnvironment {
     public static String app;
     public static String udid;
     public static String takeScreenshot;
+    public static String appPackage;
+    public static String appActivity;
+    public static String bundleId;
 
 
 
@@ -27,6 +30,10 @@ public class TestiniumEnvironment {
             takeScreenshot = System.getenv("takeScreenshot") != null ? System.getenv("takeScreenRecording") : "true";
             app = System.getenv("app") != null ? System.getenv("app") : "null";
             udid = System.getenv("udid") != null ? System.getenv("udid") : "null";
+            appPackage = System.getenv("appPackage") != null ? System.getenv("appPackage") : "null";
+            appActivity = System.getenv("appActivity") != null ? System.getenv("appActivity") : "null";
+            bundleId = System.getenv("bundleId") != null ? System.getenv("bundleId") : "null";
+
 
             System.out.println("sessionId:" +System.getenv("sessionId") );
             System.out.println("appiumVersion:" +System.getenv("appiumVersion") );

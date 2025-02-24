@@ -74,7 +74,7 @@ public class TestiniumDriver {
         commandResultLog.setRuntime(runtime);
 
         try {
-            if (TestiniumEnvironment.takeScreenshot.equals("true")){
+            if (Constants.DEFAULT_SCREENSHOT_ENABLED.equals(TestiniumEnvironment.takeScreenshot) || Constants.DEFAULT_SCREENSHOT_ONLY_FAILURE.equals(TestiniumEnvironment.takeScreenshot)){
                 String screenShotFilePath = MediaUtil.takeScreenShot(command);
                 commandResultLog.setScreenShotFilePath(screenShotFilePath);
             }
