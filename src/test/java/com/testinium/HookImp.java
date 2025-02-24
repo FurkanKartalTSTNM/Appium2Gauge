@@ -41,6 +41,7 @@ public class HookImp {
     @BeforeScenario
     public void beforeScenario() {
         try {
+            System.out.println("isAndroid:" +TestiniumEnvironment.isPlatformAndroid());
                     if(DeviceAndroid || TestiniumEnvironment.isPlatformAndroid()){
                         DesiredCapabilities overridden = new DesiredCapabilities();
                         hubUrl = new URL("deneme");
