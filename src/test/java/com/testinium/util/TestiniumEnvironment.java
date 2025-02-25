@@ -35,7 +35,7 @@ public class TestiniumEnvironment {
             udid = configReader.getPropertyValue("udid") != null ? configReader.getPropertyValue("udid") : "D55BA86F-809A-4713-92F0-AC1E573FE77F";
             appPackage = configReader.getPropertyValue("appPackage") != null ? configReader.getPropertyValue("appPackage") : "com.gratis.android";
             appActivity = configReader.getPropertyValue("appActivity") != null ? configReader.getPropertyValue("appActivity") : "com.app.gratis.ui.splash.SplashActivity";
-            bundleId = configReader.getPropertyValue("bundleId") != null ? configReader.getPropertyValue("bundleId") : "com.apple.Preferences";
+            bundleId = configReader.getPropertyValue("bundleId") != null ? configReader.getPropertyValue("bundleId") : "com.pharos.Gratis";
             hubUrl = configReader.getPropertyValue("hubUrl") != null ? configReader.getPropertyValue("hubUrl") : "https://dev-devicepark-appium-gw-service.testinium.io/wd/hub";
 
 
