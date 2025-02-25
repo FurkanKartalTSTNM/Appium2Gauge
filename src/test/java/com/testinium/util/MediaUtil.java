@@ -8,6 +8,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.remote.Command;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -20,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.testinium.util.Constants.VIDEO;
-
+import static com.testinium.util.FileUtil.saveVideo;
 public class MediaUtil {
 
     public static String takeScreenShot(Command command) throws IOException {
@@ -67,8 +68,12 @@ public class MediaUtil {
 
             try (CloseableHttpResponse response = client.execute(request)) {
                 String responseBody = EntityUtils.toString(response.getEntity());
+                JSONObject jsonResponse = new JSONObject(responseBody);
+                String base64Json = jsonResponse.getString("value");
+
                 System.out.println("📥 Kayıt tamamlandı!");
-                FileUtil.saveVideoIOS((String) responseBody, VIDEO);
+                saveVideo(base64Json, "VIDEO");
+
             }
 
         }
@@ -80,7 +85,7 @@ public class MediaUtil {
         }
         Object result = driver.executeScript(Constants.Command.STOP_RECORDING, new HashMap<>());
         try {
-            FileUtil.saveVideoAndroid((String) result, VIDEO);
+            FileUtil.saveVideo((String) result, VIDEO);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
