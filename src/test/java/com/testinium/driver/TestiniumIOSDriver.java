@@ -13,7 +13,6 @@ import static com.testinium.util.Constants.DEFAULT_PROFILE;
 import static com.testinium.util.Constants.UDID;
 import static com.testinium.util.DeviceParkUtil.setDeviceParkOptions;
 import static com.testinium.util.MediaUtil.*;
-import static com.testinium.driver.TestiniumDriver.registerDriver;
 
 
 public class TestiniumIOSDriver extends IOSDriver implements CanRecordScreen {
@@ -21,7 +20,7 @@ public class TestiniumIOSDriver extends IOSDriver implements CanRecordScreen {
 
     public TestiniumIOSDriver(URL hubUrl, DesiredCapabilities capabilities) throws Exception {
         super(new TestiniumCommandExecutor(hubUrl), overrideCapabilities(capabilities));
-        registerDriver(this.getSessionId(), this);
+        com.testinium.driver.TestiniumDriver.registerDriver(this.getSessionId(), this);
         if (recordingAllowed()){
             startScreenRecordingForIOS(this.getRemoteAddress(),this.getSessionId());
         }
@@ -39,6 +38,8 @@ public class TestiniumIOSDriver extends IOSDriver implements CanRecordScreen {
         capabilities.setCapability("app", TestiniumEnvironment.app);
         overridden.setCapability("appium:autoAcceptAlerts", true);
         setDeviceParkOptions(overridden);
+
+        System.out.println("deneme"+overridden);
 
         return overridden;
     }

@@ -21,21 +21,22 @@ public class TestiniumEnvironment {
 
     public void init() {
         ConfigReader configReader = new ConfigReader();
+        System.out.println("profffile:" + configReader.getPropertyValue("profile"));
         profile = (configReader != null && configReader.getPropertyValue("profile") != null) ?
                 configReader.getPropertyValue("profile") : null;
 
 
         if (profile.equals("testinium")) {
-            sessionId = configReader.getPropertyValue("sessionId") != null ? configReader.getPropertyValue("sessionId") : null;
-            appiumVersion = configReader.getPropertyValue("appiumVersion") != null ? configReader.getPropertyValue("appiumVersion") : null;
-            takeScreenRecording = configReader.getPropertyValue("takeScreenRecording") != null ? configReader.getPropertyValue("takeScreenRecording") : null;
-            takeScreenshot = configReader.getPropertyValue("takeScreenshot") != null ? configReader.getPropertyValue("takeScreenRecording") : null;
+            sessionId = configReader.getPropertyValue("sessionId") != null ? configReader.getPropertyValue("sessionId") : "b044c078-d8f4-4a9e-bcbe-ff8ad92fcd87";
+            appiumVersion = configReader.getPropertyValue("appiumVersion") != null ? configReader.getPropertyValue("appiumVersion") : "2.5.4";
+            takeScreenRecording = configReader.getPropertyValue("takeScreenRecording") != null ? configReader.getPropertyValue("takeScreenRecording") : "true";
+            takeScreenshot = configReader.getPropertyValue("takeScreenshot") != null ? configReader.getPropertyValue("takeScreenRecording") : "true";
             app = configReader.getPropertyValue("app") != null ? configReader.getPropertyValue("app") : null;
-            udid = configReader.getPropertyValue("udid") != null ? configReader.getPropertyValue("udid") : null;
-            appPackage = configReader.getPropertyValue("appPackage") != null ? configReader.getPropertyValue("appPackage") : null;
-            appActivity = configReader.getPropertyValue("appActivity") != null ? configReader.getPropertyValue("appActivity") : null;
-            bundleId = configReader.getPropertyValue("bundleId") != null ? configReader.getPropertyValue("bundleId") : null;
-            hubUrl = configReader.getPropertyValue("hubUrl") != null ? configReader.getPropertyValue("hubUrl") : null;
+            udid = configReader.getPropertyValue("udid") != null ? configReader.getPropertyValue("udid") : "D55BA86F-809A-4713-92F0-AC1E573FE77F";
+            appPackage = configReader.getPropertyValue("appPackage") != null ? configReader.getPropertyValue("appPackage") : "com.gratis.android";
+            appActivity = configReader.getPropertyValue("appActivity") != null ? configReader.getPropertyValue("appActivity") : "com.app.gratis.ui.splash.SplashActivity";
+            bundleId = configReader.getPropertyValue("bundleId") != null ? configReader.getPropertyValue("bundleId") : "com.pharos.Gratis";
+            hubUrl = configReader.getPropertyValue("hubUrl") != null ? configReader.getPropertyValue("hubUrl") : "https://dev-devicepark-appium-gw-service.testinium.io/wd/hub";
 
 
             System.out.println("sessionId:" +sessionId );
@@ -58,7 +59,9 @@ public class TestiniumEnvironment {
 
     public static Boolean isPlatformAndroid() {
         ConfigReader configReader = new ConfigReader();
+        System.out.println("gettingPlatform"+ configReader.getPropertyValue("platform"));
         platform = configReader.getPropertyValue("platform");
+        System.out.println("return:" +"Android".equals(platform));
         return "Android".equals(platform);
     }
 

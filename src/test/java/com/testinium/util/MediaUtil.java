@@ -22,13 +22,12 @@ import java.util.Map;
 
 import static com.testinium.util.Constants.VIDEO;
 import static com.testinium.util.FileUtil.saveVideo;
-import static com.testinium.util.FileUtil.saveFile;
 public class MediaUtil {
 
     public static String takeScreenShot(Command command) throws IOException {
         AppiumDriver driver = TestiniumDriver.getDriver(command.getSessionId());
         File screenShotFile = driver.getScreenshotAs(OutputType.FILE);
-        return saveFile(screenShotFile, command.getName(), "png");
+        return com.testinium.util.FileUtil.saveFile(screenShotFile, command.getName(), "png");
     }
 
     public static boolean recordingAllowed() {
