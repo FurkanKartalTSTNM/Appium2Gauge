@@ -28,6 +28,7 @@ import java.util.concurrent.TimeUnit;
 import static com.testinium.util.Constants.PLATFORM_NAME;
 import static com.testinium.util.Constants.UDID;
 
+
 public class HookImp {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
@@ -42,7 +43,6 @@ public class HookImp {
     @BeforeScenario
     public void beforeScenario() {
         try {
-            System.out.println("isAndroid:" +TestiniumEnvironment.isPlatformAndroid());
                     if(DeviceAndroid || TestiniumEnvironment.isPlatformAndroid()){
                         DesiredCapabilities overridden = new DesiredCapabilities();
                         overridden.setCapability(PLATFORM_NAME, Platform.ANDROID);
