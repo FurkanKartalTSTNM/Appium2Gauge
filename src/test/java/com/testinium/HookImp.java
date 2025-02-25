@@ -25,8 +25,8 @@ import java.time.Duration;
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
+import static com.testinium.util.Constants.CapabilityConstants.UDID;
 import static com.testinium.util.Constants.PLATFORM_NAME;
-import static com.testinium.util.Constants.UDID;
 
 
 public class HookImp {
