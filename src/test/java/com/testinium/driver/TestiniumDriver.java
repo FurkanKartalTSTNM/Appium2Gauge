@@ -10,10 +10,7 @@ import org.openqa.selenium.remote.SessionId;
 import org.openqa.selenium.remote.http.HttpRequest;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static com.testinium.util.Constants.ignoredCommands;
@@ -77,6 +74,8 @@ public class TestiniumDriver {
             if (Constants.DEFAULT_SCREENSHOT_ENABLED.equals(TestiniumEnvironment.takeScreenshot) || Constants.DEFAULT_SCREENSHOT_ONLY_FAILURE.equals(TestiniumEnvironment.takeScreenshot)){
                 String screenshotName = MediaUtil.takeScreenShot(command);
                 commandResultLog.setScreenshotName(screenshotName);
+                commandResultLog.setScreenshotSaved(true);
+
             }
 
         } catch (IOException e) {

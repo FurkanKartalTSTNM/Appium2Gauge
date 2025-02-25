@@ -23,6 +23,8 @@ public class CommandResultLog implements Serializable {
 
     private String level;
 
+    private Boolean screenshotSaved;
+
     public void setScreenshotName(String resultFile) {
         this.screenshotName = resultFile;
     }
@@ -93,5 +95,13 @@ public class CommandResultLog implements Serializable {
 
     public String getLevel() {
         return level;
+    }
+
+    public Boolean getScreenshotSaved() {
+        return screenshotSaved;
+    }
+
+    public void setScreenshotSaved(Boolean screenshotSaved) {
+        this.screenshotSaved = screenshotSaved;
     }
 }
