@@ -18,14 +18,15 @@ public class TestiniumEnvironment {
     public static String bundleId;
     public static String hubUrl;
 
+
     public void init() {
         ConfigReader configReader = new ConfigReader();
         System.out.println("profffile:" + configReader.getPropertyValue("profile"));
-        String envProfile = (configReader != null && configReader.getPropertyValue("profile") != null) ?
+        profile = (configReader != null && configReader.getPropertyValue("profile") != null) ?
                 configReader.getPropertyValue("profile") : null;
 
 
-        if (envProfile.equals("testinium")) {
+        if (profile.equals("testinium")) {
             sessionId = configReader.getPropertyValue("sessionId") != null ? configReader.getPropertyValue("sessionId") : "b044c078-d8f4-4a9e-bcbe-ff8ad92fcd87";
             appiumVersion = configReader.getPropertyValue("appiumVersion") != null ? configReader.getPropertyValue("appiumVersion") : "2.5.4";
             takeScreenRecording = configReader.getPropertyValue("takeScreenRecording") != null ? configReader.getPropertyValue("takeScreenRecording") : "true";
