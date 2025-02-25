@@ -2,6 +2,7 @@ package com.testinium.util;
 
 import com.testinium.driver.TestiniumDriver;
 import io.appium.java_client.AppiumDriver;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -18,17 +19,19 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.Map;
 
+import static com.testinium.util.Constants.DEFAULT_SCREENSHOT_MEDIA_TYPE;
 import static com.testinium.util.Constants.VIDEO;
-import static com.testinium.util.FileUtil.saveVideo;
 import static com.testinium.util.FileUtil.saveFile;
+import static com.testinium.util.FileUtil.saveVideo;
+
+@Slf4j
 public class MediaUtil {
 
     public static String takeScreenShot(Command command) throws IOException {
         AppiumDriver driver = TestiniumDriver.getDriver(command.getSessionId());
         File screenShotFile = driver.getScreenshotAs(OutputType.FILE);
-        return saveFile(screenShotFile, command.getName(), "png");
+        return saveFile(screenShotFile, command.getName(), DEFAULT_SCREENSHOT_MEDIA_TYPE);
     }
 
     public static boolean recordingAllowed() {
@@ -36,15 +39,17 @@ public class MediaUtil {
     }
 
     public static void startScreenRecord(RemoteWebDriver driver) {
-        if (!TestiniumEnvironment.profile.equals("testinium")){
+        if (!TestiniumEnvironment.isProfileTestinium() || !recordingAllowed()){
             return;
         }
-        Map<String, Object> params = new HashMap<>();
-        driver.executeScript(Constants.Command.START_RECORDING, params);
+        driver.executeScript(Constants.Command.START_RECORDING, new HashMap<>());
     }
-    public static void startScreenRecordingForIOS(URL remoteUrl, SessionId sessionId) throws Exception {
-        String url = remoteUrl +"/session/"+ sessionId + "/appium/start_recording_screen";
 
+    public static void startScreenRecordingForIOS(URL remoteUrl, SessionId sessionId) throws Exception {
+        if (!recordingAllowed()) {
+            return;
+        }
+        String url = generateScreenShotUrl(remoteUrl, sessionId.toString());
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpPost request = new HttpPost(url);
             request.setHeader("Content-Type", "application/json");
@@ -53,12 +58,12 @@ public class MediaUtil {
             request.setEntity(new StringEntity(jsonBody));
 
             client.execute(request);
-            System.out.println("🎥 Ekran kaydı başladı...");
+            log.info("Screen recording started for session {}", sessionId.toString());
         }
     }
 
     public static void stopScreenRecordingForIOS(URL remoteUrl, String sessionId) throws Exception {
-        String url = remoteUrl +"/session/"+ sessionId + "/appium/stop_recording_screen";
+        String url = generateScreenShotUrl(remoteUrl, sessionId);
 
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpPost request = new HttpPost(url);
@@ -72,25 +77,28 @@ public class MediaUtil {
                 JSONObject jsonResponse = new JSONObject(responseBody);
                 String base64Json = jsonResponse.getString("value");
 
-                System.out.println("📥 Kayıt tamamlandı!");
-                saveVideo(base64Json, "VIDEO");
-
+                log.info("Screen recording completed for session {}", sessionId);
+                saveVideo(base64Json, VIDEO);
             }
 
         }
     }
 
+    private static String generateScreenShotUrl(URL remoteUrl, String sessionId) {
+        return remoteUrl + "/session/" + sessionId + "/appium/stop_recording_screen";
+    }
+
     public static void saveScreenRecord(RemoteWebDriver driver) {
-        if (!TestiniumEnvironment.profile.equals("testinium")){
+        if (!TestiniumEnvironment.isProfileTestinium()){
             return;
         }
+
         Object result = driver.executeScript(Constants.Command.STOP_RECORDING, new HashMap<>());
         try {
-            FileUtil.saveVideo((String) result, VIDEO);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            FileUtil.saveVideo(result.toString(), VIDEO);
+            log.info("Video saved successfully for session id {}", driver.getSessionId());
+        } catch (Exception e) {
+            log.error("Error saving screen recording for session id {}", driver.getSessionId(),  e);
         }
     }
 }

@@ -1,12 +1,12 @@
 package com.testinium.driver;
 
-import com.testinium.util.Constants;
 import com.testinium.util.DeviceParkUtil;
 import com.testinium.util.TestiniumEnvironment;
 import io.appium.java_client.CommandExecutionHelper;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.screenrecording.BaseStartScreenRecordingOptions;
 import io.appium.java_client.screenrecording.BaseStopScreenRecordingOptions;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
@@ -14,37 +14,39 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.testinium.util.Constants.CapabilityConstants.*;
+import static com.testinium.util.Constants.Command;
 import static com.testinium.util.Constants.PLATFORM_NAME;
-import static com.testinium.util.Constants.UDID;
-import static com.testinium.util.MediaUtil.*;
+import static com.testinium.util.MediaUtil.saveScreenRecord;
+import static com.testinium.util.MediaUtil.startScreenRecord;
 import static io.appium.java_client.MobileCommand.startRecordingScreenCommand;
 import static io.appium.java_client.MobileCommand.stopRecordingScreenCommand;
 
+@Slf4j
 public class TestiniumAndroidDriver extends AndroidDriver {
 
     public TestiniumAndroidDriver(URL hubUrl, DesiredCapabilities capabilities) {
         super(new TestiniumCommandExecutor(hubUrl), overrideCapabilities(capabilities));
         TestiniumDriver.registerDriver(this.getSessionId(), this);
-        if (recordingAllowed()){
-            System.out.println("recordingAllowed");
-            startScreenRecord(this);
-        }
+        startScreenRecord(this);
+
+        log.info("Driver initiated successfully");
     }
 
     private static DesiredCapabilities overrideCapabilities(DesiredCapabilities capabilities) {
-        if (!Constants.DEFAULT_PROFILE.equals(TestiniumEnvironment.profile)) {
+        if (!TestiniumEnvironment.isProfileTestinium()) {
             return capabilities;
         }
 
         DesiredCapabilities overridden = new DesiredCapabilities(capabilities);
         overridden.setCapability(PLATFORM_NAME, Platform.ANDROID);
         overridden.setCapability(UDID, TestiniumEnvironment.udid);
-        overridden.setCapability("appium:automationName", "UiAutomator2");
-        overridden.setCapability("appium:appPackage", TestiniumEnvironment.appPackage);
-        overridden.setCapability("appium:appActivity", TestiniumEnvironment.appActivity);
-        overridden.setCapability("appium:autoGrantPermissions", true);
-        overridden.setCapability("appium:newCommandTimeout", 60000);
-        overridden.setCapability("app",TestiniumEnvironment.app);
+        overridden.setCapability(APPIUM_AUTOMATION_NAME, UI_AUTOMATOR_2);
+        overridden.setCapability(APPIUM_APP_PACKAGE, TestiniumEnvironment.appPackage);
+        overridden.setCapability(APPIUM_APP_ACTIVITY, TestiniumEnvironment.appActivity);
+        overridden.setCapability(APPIUM_AUTO_GRANT_PERMISSIONS, true);
+        overridden.setCapability(APPIUM_NEW_COMMAND_TIMEOUT, COMMAND_TIMEOUT_DEFAULT_VALUE);
+        overridden.setCapability(APP,TestiniumEnvironment.app);
         DeviceParkUtil.setDeviceParkOptions(overridden);
         return overridden;
     }
@@ -52,19 +54,13 @@ public class TestiniumAndroidDriver extends AndroidDriver {
     @Override
     public String startRecordingScreen() {
         Map<String, Object> params = new HashMap<>();
-        params.put("remotePath", "");
-        params.put("videoType", "mpeg4");
-        params.put("timeLimit", "180");
-        params.put("bitRate", "4000000");
-        params.put("videoQuality", "high");
-
-        return this.executeScript(Constants.Command.START_RECORDING, params).toString();
+        return this.executeScript(Command.START_RECORDING, params).toString();
     }
 
     @Override
     public String stopRecordingScreen() {
         Map<String, Object> params = new HashMap<>();
-        return this.executeScript(Constants.Command.STOP_RECORDING, params).toString();
+        return this.executeScript(Command.STOP_RECORDING, params).toString();
     }
 
     @Override
@@ -82,5 +78,6 @@ public class TestiniumAndroidDriver extends AndroidDriver {
        saveScreenRecord(this);
        TestiniumDriver.postQuit(this);
        super.quit();
+       log.info("Driver quit successfully");
    }
 }

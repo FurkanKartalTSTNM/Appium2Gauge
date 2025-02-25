@@ -1,9 +1,15 @@
 package com.testinium.util;
 
 import com.testinium.reader.ConfigReader;
+import lombok.extern.slf4j.Slf4j;
+import org.openqa.selenium.Platform;
 
+import java.util.Objects;
+
+import static com.testinium.util.Constants.CapabilityConstants.TAKE_SCREEN_RECORDING;
+
+@Slf4j
 public class TestiniumEnvironment {
-
 
     public static String sessionId;
     public static String appiumVersion;
@@ -18,51 +24,56 @@ public class TestiniumEnvironment {
     public static String bundleId;
     public static String hubUrl;
 
-
-    public void init() {
+    public static void init() {
         ConfigReader configReader = new ConfigReader();
-        profile = (configReader != null && configReader.getPropertyValue("profile") != null) ?
+        profile = Objects.nonNull(configReader.getPropertyValue("profile")) ?
                 configReader.getPropertyValue("profile") : null;
 
-
-        if (profile.equals("testinium")) {
-            sessionId = configReader.getPropertyValue("sessionId") != null ? configReader.getPropertyValue("sessionId") : "b044c078-d8f4-4a9e-bcbe-ff8ad92fcd87";
-            appiumVersion = configReader.getPropertyValue("appiumVersion") != null ? configReader.getPropertyValue("appiumVersion") : "2.5.4";
-            takeScreenRecording = configReader.getPropertyValue("takeScreenRecording") != null ? configReader.getPropertyValue("takeScreenRecording") : "true";
-            takeScreenshot = configReader.getPropertyValue("takeScreenshot") != null ? configReader.getPropertyValue("takeScreenRecording") : "true";
-            app = configReader.getPropertyValue("app") != null ? configReader.getPropertyValue("app") : null;
-            udid = configReader.getPropertyValue("udid") != null ? configReader.getPropertyValue("udid") : "D55BA86F-809A-4713-92F0-AC1E573FE77F";
-            appPackage = configReader.getPropertyValue("appPackage") != null ? configReader.getPropertyValue("appPackage") : "com.gratis.android";
-            appActivity = configReader.getPropertyValue("appActivity") != null ? configReader.getPropertyValue("appActivity") : "com.app.gratis.ui.splash.SplashActivity";
-            bundleId = configReader.getPropertyValue("bundleId") != null ? configReader.getPropertyValue("bundleId") : "com.pharos.Gratis";
-            hubUrl = configReader.getPropertyValue("hubUrl") != null ? configReader.getPropertyValue("hubUrl") : "https://dev-devicepark-appium-gw-service.testinium.io/wd/hub";
-
-
-            System.out.println("sessionId:" +sessionId );
-            System.out.println("appiumVersion:" +appiumVersion );
-            System.out.println("takeScreenRecording:" +takeScreenRecording );
-            System.out.println("takeScreenshot:" +takeScreenshot );
-            System.out.println("app:" +app );
-            System.out.println("udid:" +udid );
-            System.out.println("appPackage:" +appPackage );
-            System.out.println("appActivity:" +appActivity );
-            System.out.println("bundleId:" +bundleId );
-            System.out.println("hubUrl:" +hubUrl );
-            System.out.println("profile:" +profile );
-
-
+        if (!Constants.DEFAULT_PROFILE.equals(profile)) {
+            return;
         }
 
-        System.out.println("Environment Variables Initialized");
+        sessionId = configReader.getPropertyValue("sessionId");
+        appiumVersion = configReader.getPropertyValue("appiumVersion");
+        takeScreenRecording = configReader.getPropertyValue(TAKE_SCREEN_RECORDING);
+        takeScreenshot = configReader.getPropertyValue("takeScreenshot");
+        app = configReader.getPropertyValue("app");
+        udid = configReader.getPropertyValue("udid");
+        appPackage = configReader.getPropertyValue("appPackage");
+        appActivity = configReader.getPropertyValue("appActivity");
+        bundleId = configReader.getPropertyValue("bundleId");
+        hubUrl = configReader.getPropertyValue("hubUrl");
+
+        log.info("sessionId:{}", sessionId);
+        log.info("appiumVersion:{}", appiumVersion);
+        log.info("takeScreenRecording:{}", takeScreenRecording);
+        log.info("takeScreenshot:{}", takeScreenshot);
+        log.info("app:{}", app);
+        log.info("udid:{}", udid);
+        log.info("appPackage:{}", appPackage);
+        log.info("appActivity:{}", appActivity);
+        log.info("bundleId:{}", bundleId);
+        log.info("hubUrl:{}", hubUrl);
+        log.info("profile:{}", profile);
+        log.info("Environment Variables Initialized");
     }
 
+    public static Boolean isProfileTestinium(){
+        return Constants.DEFAULT_PROFILE.equals(profile);
+    }
+
+    public static Boolean isAndroid(){
+        return Platform.ANDROID.name().equals(platform);
+    }
 
     public static Boolean isPlatformAndroid() {
         ConfigReader configReader = new ConfigReader();
-        System.out.println("gettingPlatform: "+ configReader.getPropertyValue("platform"));
+        log.info("gettingPlatform: {}", configReader.getPropertyValue("platform"));
         platform = configReader.getPropertyValue("platform");
-        return "Android".equals(platform);
+        return Platform.ANDROID.name().equalsIgnoreCase(platform);
     }
 
-
+    public static Boolean isAllowedToTakeScreenshot() {
+        return Boolean.TRUE.toString().toLowerCase().equals(takeScreenshot) || Constants.DEFAULT_SCREENSHOT_ONLY_FAILURE.equalsIgnoreCase(takeScreenshot);
+    }
 }
