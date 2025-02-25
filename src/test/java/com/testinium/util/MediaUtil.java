@@ -46,10 +46,8 @@ public class MediaUtil {
     }
 
     public static void startScreenRecordingForIOS(URL remoteUrl, SessionId sessionId) throws Exception {
-        if (!recordingAllowed()) {
-            return;
-        }
-        String url = generateScreenShotUrl(remoteUrl, sessionId.toString());
+        String url = remoteUrl +"/session/"+ sessionId + "/appium/start_recording_screen";
+
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpPost request = new HttpPost(url);
             request.setHeader("Content-Type", "application/json");
@@ -58,7 +56,7 @@ public class MediaUtil {
             request.setEntity(new StringEntity(jsonBody));
 
             client.execute(request);
-            log.info("Screen recording started for session {}", sessionId.toString());
+            System.out.println("🎥 Ekran kaydı başladı...");
         }
     }
 
