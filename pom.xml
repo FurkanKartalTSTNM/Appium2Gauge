@@ -9,8 +9,8 @@
 
     <repositories>
         <repository>
-            <id>testinium-repo</id>
-            <url>https://your-repository-url/repository/maven-releases/</url>
+            <id>testinium-mvno</id>
+            <url>https://mvn.testinium.com/repository/internal/</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
