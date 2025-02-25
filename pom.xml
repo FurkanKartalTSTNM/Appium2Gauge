@@ -6,18 +6,8 @@
     <artifactId>appium2-gauge</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <distributionManagement>
-        <repository>
-            <id>testinium-mvn</id>
-            <url>https://mvn.testinium.com/repository/internal/</url>
-        </repository>
-    </distributionManagement>
 
     <repositories>
-        <repository>
-            <id>testinium-mvn</id>
-            <url>https://mvn.testinium.com/repository/internal/</url>
-        </repository>
         <repository>
             <id>central</id>
             <name>Central Repository</name>
