@@ -21,7 +21,6 @@ public class TestiniumEnvironment {
 
     public void init() {
         ConfigReader configReader = new ConfigReader();
-        System.out.println("profffile:" + configReader.getPropertyValue("profile"));
         profile = (configReader != null && configReader.getPropertyValue("profile") != null) ?
                 configReader.getPropertyValue("profile") : null;
 
@@ -49,6 +48,7 @@ public class TestiniumEnvironment {
             System.out.println("appActivity:" +appActivity );
             System.out.println("bundleId:" +bundleId );
             System.out.println("hubUrl:" +hubUrl );
+            System.out.println("profile:" +profile );
 
 
         }

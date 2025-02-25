@@ -40,8 +40,6 @@ public class TestiniumIOSDriver extends IOSDriver implements CanRecordScreen {
         overridden.setCapability("appium:autoAcceptAlerts", true);
         setDeviceParkOptions(overridden);
 
-        System.out.println("deneme"+overridden);
-
         return overridden;
     }
 
