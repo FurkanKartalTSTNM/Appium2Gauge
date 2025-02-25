@@ -15,11 +15,16 @@ import java.util.List;
 
 public class FileUtil {
 
-    public static String saveFile(File file,  String fileName, String fileType) throws IOException {
-        String filePath = String.format("%s%s - %s.%s", Folder.REPORTS.getFolderName(), fileName, (new Date()).getTime(), fileType);
+    public static String saveFile(File file, String fileName, String fileType) throws IOException {
+        String timeStamp = String.valueOf(System.currentTimeMillis());
+        String sanitizedFileName = fileName.replaceAll("\\s+", "_");
+        String name = String.format("%s-%s.%s", sanitizedFileName, timeStamp, fileType);
+        String filePath = Paths.get(Folder.REPORTS.getFolderName(), name).toString();
+
         Files.createDirectories(Paths.get(Folder.REPORTS.getFolderName()));
         Files.copy(file.toPath(), Paths.get(filePath));
-        return filePath;
+
+        return name;
     }
 
 
@@ -31,12 +36,8 @@ public class FileUtil {
 
         String filePath = String.format("%s/%s-%d.mp4", folderPath, fileName, new Date().getTime());
         File file = new File(filePath);
-        Thread.sleep(2000);
         try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
-            Thread.sleep(2000);
             fileOutputStream.write(videoBytes);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
         }
     }
 

@@ -38,7 +38,7 @@ public class HookImp {
     protected static FluentWait<AppiumDriver> appiumFluentWait;
     protected static Selector selector ;
 
-    Boolean DeviceAndroid =false;
+    Boolean DeviceAndroid =true;
     @BeforeScenario
     public void beforeScenario() {
         try {

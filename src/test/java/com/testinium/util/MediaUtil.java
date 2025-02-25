@@ -68,11 +68,8 @@ public class MediaUtil {
 
             try (CloseableHttpResponse response = client.execute(request)) {
                 String responseBody = EntityUtils.toString(response.getEntity());
-                Thread.sleep(2000);
                 JSONObject jsonResponse = new JSONObject(responseBody);
-                Thread.sleep(2000);
                 String base64Json = jsonResponse.getString("value");
-                Thread.sleep(2000);
 
                 System.out.println("📥 Kayıt tamamlandı!");
                 saveVideo(base64Json, "VIDEO");

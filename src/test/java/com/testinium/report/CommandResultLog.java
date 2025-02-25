@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class CommandResultLog implements Serializable {
 
-    private String screenShotFilePath;
+    private String screenshotName;
 
     private String method;
 
@@ -23,8 +23,8 @@ public class CommandResultLog implements Serializable {
 
     private String level;
 
-    public void setScreenShotFilePath(String resultFile) {
-        this.screenShotFilePath = resultFile;
+    public void setScreenshotName(String resultFile) {
+        this.screenshotName = resultFile;
     }
 
     public void setRequestData(String requestData) {
@@ -59,8 +59,8 @@ public class CommandResultLog implements Serializable {
         this.method = method;
     }
 
-    public String getScreenShotFilePath() {
-        return screenShotFilePath;
+    public String getScreenshotName() {
+        return screenshotName;
     }
 
     public String getMethod() {
