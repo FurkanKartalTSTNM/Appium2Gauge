@@ -46,7 +46,6 @@ public class TestiniumAndroidDriver extends AndroidDriver {
         overridden.setCapability("appium:newCommandTimeout", 60000);
         overridden.setCapability("app",TestiniumEnvironment.app);
         DeviceParkUtil.setDeviceParkOptions(overridden);
-        System.out.println("Appium session creation request:" +overridden);
         return overridden;
     }
 

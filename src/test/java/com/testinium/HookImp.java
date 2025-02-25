@@ -42,8 +42,7 @@ public class HookImp {
     @BeforeScenario
     public void beforeScenario() {
         try {
-            System.out.println("isAndroid:" +TestiniumEnvironment.isPlatformAndroid());
-                    if(DeviceAndroid || TestiniumEnvironment.isPlatformAndroid()){
+                    if(TestiniumEnvironment.isPlatformAndroid() || DeviceAndroid){
                         DesiredCapabilities overridden = new DesiredCapabilities();
                         overridden.setCapability(PLATFORM_NAME, Platform.ANDROID);
                         overridden.setCapability(UDID, "R68R902ETFR");
