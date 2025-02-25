@@ -18,6 +18,12 @@
             <id>testinium-mvn</id>
             <url>https://mvn.testinium.com/repository/internal/</url>
         </repository>
+        <repository>
+            <id>central</id>
+            <name>Central Repository</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+        </repository>
+
     </repositories>
 
     <properties>
