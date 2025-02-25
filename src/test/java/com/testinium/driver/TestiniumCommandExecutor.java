@@ -1,5 +1,6 @@
 package com.testinium.driver;
 
+import com.testinium.util.Constants;
 import com.testinium.util.TestiniumEnvironment;
 import io.appium.java_client.remote.AppiumCommandExecutor;
 import org.openqa.selenium.remote.Command;
@@ -35,8 +36,10 @@ public class TestiniumCommandExecutor extends AppiumCommandExecutor {
     }
 
     public static URL setRemoteUrl(URL url){
-
         startEnvironmentVariables();
+        if (!Constants.DEFAULT_PROFILE.equals(TestiniumEnvironment.profile)){
+            return url;
+        }
         try {
             return new URL(TestiniumEnvironment.hubUrl);
         } catch (MalformedURLException e) {
