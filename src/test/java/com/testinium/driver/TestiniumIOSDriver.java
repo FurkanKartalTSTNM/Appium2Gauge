@@ -13,6 +13,7 @@ import static com.testinium.util.Constants.DEFAULT_PROFILE;
 import static com.testinium.util.Constants.UDID;
 import static com.testinium.util.DeviceParkUtil.setDeviceParkOptions;
 import static com.testinium.util.MediaUtil.*;
+import static com.testinium.driver.TestiniumDriver.registerDriver;
 
 
 public class TestiniumIOSDriver extends IOSDriver implements CanRecordScreen {
@@ -20,7 +21,7 @@ public class TestiniumIOSDriver extends IOSDriver implements CanRecordScreen {
 
     public TestiniumIOSDriver(URL hubUrl, DesiredCapabilities capabilities) throws Exception {
         super(new TestiniumCommandExecutor(hubUrl), overrideCapabilities(capabilities));
-        com.testinium.driver.TestiniumDriver.registerDriver(this.getSessionId(), this);
+        registerDriver(this.getSessionId(), this);
         if (recordingAllowed()){
             startScreenRecordingForIOS(this.getRemoteAddress(),this.getSessionId());
         }
