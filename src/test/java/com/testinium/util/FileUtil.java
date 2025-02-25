@@ -23,7 +23,7 @@ public class FileUtil {
     }
 
 
-    public static void saveVideo(String base64Video, String fileName) throws IOException {
+    public static void saveVideo(String base64Video, String fileName) throws IOException, InterruptedException {
         byte[] videoBytes = Base64.getDecoder().decode(base64Video);
 
         String folderPath = Folder.REPORTS.getFolderName();
@@ -31,9 +31,12 @@ public class FileUtil {
 
         String filePath = String.format("%s/%s-%d.mp4", folderPath, fileName, new Date().getTime());
         File file = new File(filePath);
-
+        Thread.sleep(2000);
         try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
+            Thread.sleep(2000);
             fileOutputStream.write(videoBytes);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 
