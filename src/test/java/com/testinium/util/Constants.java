@@ -12,7 +12,7 @@ public class Constants {
     public static final String REPORT_FILE_NAME = "command-result";
     public static final String SESSION = "session";
     public static final String PLATFORM_NAME = "platformName";
-    public static final String VIDEO = "video-record";
+    public static final String VIDEO = "VIDEO";
     public static final String DEFAULT_SCREENSHOT_MEDIA_TYPE = "png";
     public static final String ENV_DEFAULT_PROPERTIES_PATH = "env/default/default.properties";
 
