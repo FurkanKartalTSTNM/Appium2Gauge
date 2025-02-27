@@ -9,7 +9,7 @@
 
     <repositories>
         <repository>
-            <id>testinium-mvno</id>
+            <id>testinium-mvn</id>
             <url>https://mvn.testinium.com/repository/internal/</url>
             <snapshots>
                 <enabled>true</enabled>
