@@ -21,8 +21,8 @@ public class FileUtil {
         String timeStamp = String.valueOf(System.currentTimeMillis());
         String sanitizedFileName = fileName.replaceAll("\\s+", "_");
         String name = String.format("%s-%s.%s", sanitizedFileName, timeStamp, fileType);
-        String filePath = Paths.get(Folder.REPORTS.getFolderName(), name).toString();
-        Files.createDirectories(Paths.get(Folder.REPORTS.getFolderName()));
+        String filePath = Paths.get(Folder.SCREENHOTS.getFolderName(), name).toString();
+        Files.createDirectories(Paths.get(Folder.SCREENHOTS.getFolderName()));
         Files.copy(file.toPath(), Paths.get(filePath));
         log.info("File saved successfully to {}", filePath);
         return name;
