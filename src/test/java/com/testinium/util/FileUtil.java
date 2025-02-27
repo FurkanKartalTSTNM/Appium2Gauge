@@ -28,14 +28,19 @@ public class FileUtil {
         return name;
     }
 
-    public static void saveVideo(String base64Video, String fileName) throws IOException, InterruptedException {
+    public static void saveVideo(String base64Video, String fileName) throws IOException {
         byte[] videoBytes = Base64.getDecoder().decode(base64Video);
 
         String folderPath = Folder.REPORTS.getFolderName();
         Files.createDirectories(Paths.get(folderPath));
 
-        String filePath = String.format("%s/%s-%d.mp4", folderPath, fileName, new Date().getTime());
+        if (!fileName.toLowerCase().endsWith(".mp4")) {
+            fileName += ".mp4";
+        }
+
+        String filePath = String.format("%s/%s", folderPath, fileName);
         File file = new File(filePath);
+
         try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
             fileOutputStream.write(videoBytes);
         }
@@ -53,7 +58,11 @@ public class FileUtil {
             String folderPath = Folder.REPORTS.getFolderName();
             Files.createDirectories(Paths.get(folderPath));
 
-            String filePath = String.format("%s/%s-%d.json", folderPath, fileName, new Date().getTime());
+            if (!fileName.toLowerCase().endsWith(".json")) {
+                fileName += ".json";
+            }
+
+            String filePath = String.format("%s/%s", folderPath, fileName);
             objectMapper.writeValue(new File(filePath), list);
         } catch (IOException e) {
             log.error("Error occurred while saving list {} to file  {} ", list, fileName, e);
