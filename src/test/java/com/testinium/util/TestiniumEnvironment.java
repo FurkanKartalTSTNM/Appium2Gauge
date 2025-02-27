@@ -42,7 +42,7 @@ public class TestiniumEnvironment {
         appPackage = configReader.getPropertyValue("appPackage");
         appActivity = configReader.getPropertyValue("appActivity");
         bundleId = configReader.getPropertyValue("bundleId");
-        hubUrl = configReader.getPropertyValue("hubURL");
+        hubUrl = configReader.getPropertyValue("hubUrl");
 
         System.out.println("sessionId: " + sessionId);
         System.out.println("appiumVersion: " + appiumVersion);
@@ -75,6 +75,6 @@ public class TestiniumEnvironment {
     }
 
     public static Boolean isAllowedToTakeScreenshot() {
-        return Boolean.TRUE.toString().toLowerCase().equals(takeScreenshot) || Constants.DEFAULT_SCREENSHOT_ONLY_FAILURE.equalsIgnoreCase(takeScreenshot);
+        return Constants.DEFAULT_SCREENSHOT_ENABLED.equalsIgnoreCase(takeScreenshot) || Constants.DEFAULT_SCREENSHOT_ONLY_FAILURE.equalsIgnoreCase(takeScreenshot);
     }
 }
