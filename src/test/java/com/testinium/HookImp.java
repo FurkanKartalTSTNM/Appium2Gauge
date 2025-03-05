@@ -64,9 +64,6 @@ public class HookImp {
                         appiumFluentWait.withTimeout(Duration.ofSeconds(8))
                                 .pollingEvery(Duration.ofMillis(350))
                                 .ignoring(NoSuchElementException.class);
-
-                        System.out.println("------ Appium Logları (Android) ------");
-                        System.out.println(androidDriver.manage().logs().get("logcat"));
                     }
                     else {
                         System.out.println("IOS");
@@ -87,9 +84,6 @@ public class HookImp {
                         appiumFluentWait.withTimeout(Duration.ofSeconds(8))
                                 .pollingEvery(Duration.ofMillis(350))
                                 .ignoring(NoSuchElementException.class);
-
-                        System.out.println("------ Appium Logları (Android) ------");
-                        System.out.println(iosDriver.manage().logs().get("logcat"));
                     }
         } catch (MalformedURLException e) {
             logger.error(e.getMessage());
@@ -102,7 +96,6 @@ public class HookImp {
     public void afterScenario() {
         try {
             if(DeviceAndroid || TestiniumEnvironment.isPlatformAndroid()){
-                System.out.println(androidDriver.manage().logs().get("logcat"));
                 androidDriver.quit();
             }
                 iosDriver.quit();
