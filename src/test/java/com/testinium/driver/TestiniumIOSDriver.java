@@ -40,9 +40,10 @@ public class TestiniumIOSDriver extends IOSDriver implements CanRecordScreen {
         overridden.setCapability(APPIUM_BUNDLE_ID, TestiniumEnvironment.bundleId);
         overridden.setCapability("appium:newCommandTimeout", "60000");
 
-        String stringderivedDataPath ="/tmp/appiumDerivedData_" + UUID.randomUUID().toString();
-        System.out.println("stringderivedDataPath:" +stringderivedDataPath);
-        overridden.setCapability("derivedDataPath", stringderivedDataPath);
+        //String stringderivedDataPath ="/tmp/appiumDerivedData_" + UUID.randomUUID().toString();
+        System.out.println("stringderivedDataPath:" +UUID.randomUUID().toString());
+        overridden.setCapability("derivedDataPath", UUID.randomUUID().toString());
+        //overridden.setCapability("derivedDataPath", stringderivedDataPath);
 
         capabilities.setCapability("app", TestiniumEnvironment.app);
         overridden.setCapability(APPIUM_AUTO_ACCEPT_ALERTS, true);
