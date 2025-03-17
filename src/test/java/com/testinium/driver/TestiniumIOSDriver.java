@@ -10,6 +10,7 @@ import org.openqa.selenium.Platform;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.URL;
+import java.util.UUID;
 
 import static com.testinium.driver.TestiniumDriver.registerDriver;
 import static com.testinium.util.Constants.CapabilityConstants.*;
@@ -38,6 +39,9 @@ public class TestiniumIOSDriver extends IOSDriver implements CanRecordScreen {
         overridden.setCapability(APPIUM_AUTOMATION_NAME, XCUI_TEST);
         overridden.setCapability(APPIUM_BUNDLE_ID, TestiniumEnvironment.bundleId);
         overridden.setCapability("appium:newCommandTimeout", "60000");
+
+        String StringderivedDataPath="/tmp/appiumDerivedData_" + UUID.randomUUID().toString();
+        overridden.setCapability("derivedDataPath", StringderivedDataPath);
 
         capabilities.setCapability("app", TestiniumEnvironment.app);
         overridden.setCapability(APPIUM_AUTO_ACCEPT_ALERTS, true);
