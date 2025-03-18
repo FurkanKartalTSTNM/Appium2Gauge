@@ -64,14 +64,14 @@ public class MediaUtil {
     }
 
     public static void stopScreenRecordingForIOS(URL remoteUrl, String sessionId) throws Exception {
-        String url = remoteUrl +"/session/"+ sessionId + "/appium/stop_recording_screen";
+        String url = remoteUrl + "/session/" + sessionId + "/appium/stop_recording_screen";
 
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpPost request = new HttpPost(url);
             request.setHeader("Content-Type", "application/json");
 
-            String jsonBody = "{}";
-            request.setEntity(new StringEntity(jsonBody));
+            JSONObject jsonBody = new JSONObject();
+            request.setEntity(new StringEntity(jsonBody.toString()));
 
             try (CloseableHttpResponse response = client.execute(request)) {
                 String responseBody = EntityUtils.toString(response.getEntity());
@@ -80,9 +80,7 @@ public class MediaUtil {
 
                 System.out.println("📥 Kayıt tamamlandı!");
                 saveVideo(base64Json, "VIDEO");
-
             }
-
         }
     }
 
