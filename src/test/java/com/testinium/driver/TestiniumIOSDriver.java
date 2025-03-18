@@ -25,7 +25,7 @@ public class TestiniumIOSDriver extends IOSDriver implements CanRecordScreen {
     public TestiniumIOSDriver(URL hubUrl, DesiredCapabilities capabilities) throws Exception {
         super(new TestiniumCommandExecutor(hubUrl), overrideCapabilities(capabilities));
         registerDriver(this.getSessionId(), this);
-        startScreenRecordingForIOS(this.getRemoteAddress(),this.getSessionId());
+        startScreenRecordingForIOS(this.getRemoteAddress(), String.valueOf(this.getSessionId()));
 
     }
 

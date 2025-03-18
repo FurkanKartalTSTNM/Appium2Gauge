@@ -45,18 +45,21 @@ public class MediaUtil {
         driver.executeScript(Constants.Command.START_RECORDING, new HashMap<>());
     }
 
-    public static void startScreenRecordingForIOS(URL remoteUrl, SessionId sessionId) throws Exception {
-        String url = remoteUrl +"/session/"+ sessionId + "/appium/start_recording_screen";
+    public static void startScreenRecordingForIOS(URL remoteUrl, String sessionId) throws Exception {
+        String url = remoteUrl + "/session/" + sessionId + "/appium/start_recording_screen";
 
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpPost request = new HttpPost(url);
             request.setHeader("Content-Type", "application/json");
 
-            String jsonBody = "{}";
-            request.setEntity(new StringEntity(jsonBody));
+            JSONObject jsonBody = new JSONObject();
+            jsonBody.put("videoType", "h264");
+            jsonBody.put("timeLimit", 180);
+
+            request.setEntity(new StringEntity(jsonBody.toString()));
 
             client.execute(request);
-            System.out.println("🎥 Ekran kaydı başladı...");
+            System.out.println("🎥 Ekran kaydı H.264 formatında başladı...");
         }
     }
 
