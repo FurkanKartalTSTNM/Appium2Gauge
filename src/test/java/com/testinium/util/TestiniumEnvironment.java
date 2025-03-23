@@ -42,7 +42,7 @@ public class TestiniumEnvironment {
         appPackage = configReader.getPropertyValue("appPackage");
         appActivity = configReader.getPropertyValue("appActivity");
         bundleId = configReader.getPropertyValue("bundleId");
-        hubUrl = "deneme";
+        hubUrl = configReader.getPropertyValue("hubURL");
 
         System.out.println("sessionId: " + sessionId);
         System.out.println("appiumVersion: " + appiumVersion);
