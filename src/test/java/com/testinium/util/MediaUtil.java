@@ -3,8 +3,10 @@ package com.testinium.util;
 import com.testinium.driver.TestiniumDriver;
 import io.appium.java_client.AppiumDriver;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -52,11 +54,8 @@ public class MediaUtil {
             HttpPost request = new HttpPost(url);
             request.setHeader("Content-Type", "application/json");
 
-            JSONObject jsonBody = new JSONObject();
-            jsonBody.put("videoType", "h264");
-            jsonBody.put("timeLimit", 180);
-
-            request.setEntity(new StringEntity(jsonBody.toString()));
+            HttpEntity options = new StringEntity("{\"options\": {\"videoType\":\"h264\", \"timeLimit\":\"1800\", \"videoScale\":\"1280:-2\"}}", ContentType.APPLICATION_JSON);
+            request.setEntity(options);
 
             client.execute(request);
             System.out.println("🎥 Ekran kaydı H.264 formatında başladı...");
