@@ -38,15 +38,15 @@ public class TestiniumIOSDriver extends IOSDriver implements CanRecordScreen {
         overridden.setCapability(UDID, TestiniumEnvironment.udid);
         overridden.setCapability(APPIUM_AUTOMATION_NAME, XCUI_TEST);
         overridden.setCapability(APPIUM_BUNDLE_ID, TestiniumEnvironment.bundleId);
-        overridden.setCapability("appium:newCommandTimeout", "60000");
+        overridden.setCapability("appium:newCommandTimeout", 300000);
+        overridden.setCapability("appium:wdaConnectionTimeout", 600000);
 
-        //String stringderivedDataPath ="/tmp/appiumDerivedData_" + UUID.randomUUID().toString();
-        System.out.println("stringderivedDataPath:" +UUID.randomUUID().toString());
-        overridden.setCapability("derivedDataPath", UUID.randomUUID().toString());
-        //overridden.setCapability("derivedDataPath", stringderivedDataPath);
-
-        capabilities.setCapability("app", TestiniumEnvironment.app);
+        System.out.println("App:" +TestiniumEnvironment.app);
+        overridden.setCapability("appium:app", TestiniumEnvironment.app);
         overridden.setCapability(APPIUM_AUTO_ACCEPT_ALERTS, true);
+        overridden.setCapability("appium:usePrebuiltWDA",true);
+        overridden.setCapability("derivedDataPath", UUID.randomUUID().toString());
+        System.out.println("derivedDataPath: " + TestiniumEnvironment.sessionId);
         setDeviceParkOptions(overridden);
 
         return overridden;
