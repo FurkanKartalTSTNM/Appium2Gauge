@@ -40,7 +40,6 @@ public class TestiniumIOSDriver extends IOSDriver implements CanRecordScreen {
         overridden.setCapability(APPIUM_BUNDLE_ID, TestiniumEnvironment.bundleId);
         overridden.setCapability("appium:newCommandTimeout", 300000);
         overridden.setCapability("appium:wdaConnectionTimeout", 600000);
-        overridden.setCapability("autoAcceptAlerts", true);
 
 
         overridden.setCapability("appium:app", TestiniumEnvironment.app);
